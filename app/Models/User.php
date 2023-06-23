@@ -50,4 +50,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rating::class);
     }
+
+    /**
+     * Get the favorite staff for the user.
+     */
+    public function favoriteStaff()
+    {
+        return $this->belongsToMany(Staff::class, 'favorite_staff');
+    }
+
+    /**
+     * Get the favorite characters for the user.
+     */
+    public function favoriteCharacters()
+    {
+        return $this->belongsToMany(Character::class, 'favorite_characters');
+    }
 }

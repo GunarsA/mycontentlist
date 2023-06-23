@@ -32,4 +32,20 @@ class Content extends Model
     {
         return $this->belongsToMany(Genre::class, 'content_genres');
     }
+
+    /**
+     * Get the studios for the content.
+     */
+    public function studios()
+    {
+        return $this->belongsToMany(Studio::class, 'content_studios');
+    }
+
+    /**
+     * Get the characters for the content.
+     */
+    public function characters()
+    {
+        return $this->belongsToMany(Character::class, 'content_characters');
+    }
 }
