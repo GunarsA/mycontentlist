@@ -13,6 +13,8 @@ class ContentController extends Controller
     public function index()
     {
         $content = Content::all();
+
+        // dd($content);
         return view('content', compact('content'));
     }
 

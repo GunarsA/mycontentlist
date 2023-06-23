@@ -6,6 +6,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Content;
 use App\Models\User;
+use App\Models\Staff;
+use App\Models\Role;
+use App\Models\Genre;
+use App\Models\ContentGenre;
 
 class DatabaseSeeder extends Seeder
 {
@@ -51,6 +55,46 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@email.com',
             'password' => bcrypt('password'),
         ]);
+
+        Staff::create([
+            'name' => 'Keanu Reeves',
+        ]);
+        Staff::create([
+            'name' => 'Laurence Fishburne',
+        ]);
+
+        Role::create([
+            'content_id' => 1,
+            'staff_id' => 1,
+            'role' => 'Actor',
+        ]);
+
+        Role::create([
+            'content_id' => 1,
+            'staff_id' => 2,
+            'role' => 'Actor',
+        ]);
+
+        Genre::create([
+            'genre' => 'Action',
+        ]);
+
+        Genre::create([
+            'genre' => 'Sci-Fi',
+        ]);
+
+        $content = Content::find(1);
+        $content->genres()->attach([1, 2]);
+
+        // ContentGenre::create([
+        //     'content_id' => 1,
+        //     'genre_id' => 1,
+        // ]);
+
+        // ContentGenre::create([
+        //     'content_id' => 1,
+        //     'genre_id' => 2,
+        // ]);
 
     }
 }

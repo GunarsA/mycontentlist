@@ -23,6 +23,16 @@
                 <td> {{ $content->episode_cnt }} </td>
                 <td> {{ $content->length }} </td>
                 <td> {{ $content->year }} </td>
+                <td>
+                    @foreach($content->genres as $genre)
+                    {{ $genre->genre }},
+                    @endforeach
+                <td>
+                <td>
+                    @foreach($content->staff as $staff)
+                    {{ $staff->name }} ({{ $staff->pivot->role }}),
+                    @endforeach
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -16,4 +16,20 @@ class Content extends Model
     {
         return $this->hasMany(Rating::class);
     }
+
+    /**
+     * Get the staff for the content.
+     */
+    public function staff()
+    {
+        return $this->belongsToMany(Staff::class, 'roles')->withPivot('role');
+    }
+
+    /**
+     * Get the genres for the content.
+     */
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'content_genres');
+    }
 }
