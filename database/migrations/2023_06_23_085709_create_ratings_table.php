@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('is_favorite')->default(false);
             $table->date('date_started')->nullable();
             $table->date('date_finished')->nullable();
+            $table->text('review')->nullable();
             $table->timestamps();
         });
     }
