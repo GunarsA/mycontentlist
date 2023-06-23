@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('content', ContentController::class);
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('content');
 });
 
 Route::get('/dashboard', function () {
