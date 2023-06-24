@@ -21,10 +21,13 @@ class ContentController extends Controller
      */
     public function create()
     {
+        $types = \App\Models\ContentType::all();
         $genres = \App\Models\Genre::all();
         $staff = \App\Models\Staff::all();
+        $positions= \App\Models\PositionType::all();
+        $studios = \App\Models\Studio::all();
         $characters = \App\Models\Character::all();
-        return view('content_new', compact('genres', 'staff', 'characters'));
+        return view('content_new', compact('types', 'genres', 'staff', 'characters', 'studios', 'positions'));
     }
 
     /**
@@ -32,7 +35,24 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  dd($request->all());
+        $content = new Content();
+        $content->title = $request->title;
+        $content->content_type_id = $request->content_type;
+        $content->episode_cnt = $request->episode_cnt;
+        $content->length = $request->length;
+        $content->year = $request->year;
+        $content->save();
+
+        $content->genres()->attach($request->genre);
+        $content->studios()->attach($request->studio);  
+
+        $positions = \App\Models\PositionType::all();
+        foreach ($positions as $position) {
+            $content->crew()->attach($request[$position->position], ['position_type_id' => $position->id]);
+        }
+
+        return redirect('/content');
     }
 
     /**
@@ -40,7 +60,8 @@ class ContentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $content = Content::findOrFail($id);
+        return view('content_show', compact('content'));
     }
 
     /**
@@ -48,7 +69,14 @@ class ContentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $content = Content::findOrFail($id);
+        $types = \App\Models\ContentType::all();
+        $genres = \App\Models\Genre::all();
+        $staff = \App\Models\Staff::all();
+        $positions= \App\Models\PositionType::all();
+        $studios = \App\Models\Studio::all();
+        $characters = \App\Models\Character::all();
+        return view('content_edit', compact('content', 'types', 'genres', 'staff', 'characters', 'studios', 'positions'));
     }
 
     /**
@@ -56,7 +84,23 @@ class ContentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $content = Content::findOrFail($id);
+        $content->title = $request->title;
+        $content->content_type_id = $request->content_type;
+        $content->episode_cnt = $request->episode_cnt;
+        $content->length = $request->length;
+        $content->year = $request->year;
+        $content->save();
+
+        $content->genres()->sync($request->genre);
+        $content->studios()->sync($request->studio);  
+
+        $positions = \App\Models\PositionType::all();
+        foreach ($positions as $position) {
+            $content->crew()->sync($request[$position->position], ['position_type_id' => $position->id]);
+        }
+
+        return redirect('/content');
     }
 
     /**
