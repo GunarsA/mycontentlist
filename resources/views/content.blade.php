@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th> Title </th>
+                <th> Type </th>
                 <th> Episode Count </th>
                 <th> Length </th>
                 <th> Year </th>
@@ -25,6 +26,7 @@
             @foreach($content as $content)
             <tr>
                 <td> {{ $content->title }} </td>
+                <td> {{ $content->type->type }} </td>
                 <td> {{ $content->episode_cnt }} </td>
                 <td> {{ $content->length }} </td>
                 <td> {{ $content->year }} </td>

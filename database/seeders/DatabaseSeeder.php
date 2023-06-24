@@ -34,27 +34,40 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        DB::table('content_types')->insert([
+            [
+                'type' => 'Movie',
+            ],
+            [
+                'type' => 'TV Show',
+            ],
+        ]);
+
         DB::table('contents')->insert([
             [
                 'title' => 'The Matrix',
+                'content_type_id' => 1,
                 'episode_cnt' => 1,
                 'length' => 136,
                 'year' => 1999
             ],
             [
                 'title' => 'The Matrix Reloaded',
+                'content_type_id' => 1,
                 'episode_cnt' => 1,
                 'length' => 138,
                 'year' => 2003
             ],
             [
                 'title' => 'The Matrix Revolutions',
+                'content_type_id' => 1,
                 'episode_cnt' => 1,
                 'length' => 129,
                 'year' => 2003,
             ],
             [
                 'title' => 'The Office',
+                'content_type_id' => 2,
                 'episode_cnt' => 201,
                 'length' => 22,
                 'year' => 2005,

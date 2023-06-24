@@ -10,6 +10,14 @@ class Content extends Model
     use HasFactory;
 
     /**
+     * Get the content type for the content.
+     */
+    public function type()
+    {
+        return $this->belongsTo(ContentType::class, 'content_type_id');
+    }
+
+    /**
      * Get the ratings for the content.
      */
     public function ratings()
