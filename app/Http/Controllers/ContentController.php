@@ -13,8 +13,6 @@ class ContentController extends Controller
     public function index()
     {
         $content = Content::all();
-
-        // dd($content);
         return view('content', compact('content'));
     }
 
@@ -23,7 +21,10 @@ class ContentController extends Controller
      */
     public function create()
     {
-        //
+        $genres = \App\Models\Genre::all();
+        $staff = \App\Models\Staff::all();
+        $characters = \App\Models\Character::all();
+        return view('content_new', compact('genres', 'staff', 'characters'));
     }
 
     /**
@@ -63,6 +64,7 @@ class ContentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Content::findOrFail($id)->delete();
+        return redirect('/content');
     }
 }

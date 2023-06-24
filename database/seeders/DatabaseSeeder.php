@@ -101,26 +101,37 @@ class DatabaseSeeder extends Seeder
             [
                 'content_id' => 1,
                 'staff_id' => 1,
-                'role' => 'Actor',
                 'character_id' => 1,
             ],
             [
                 'content_id' => 1,
                 'staff_id' => 2,
-                'role' => 'Actor',
                 'character_id' => 2,
             ],
+        ]);
+
+        DB::table('position_types')->insert([
+            [
+                'position' => 'Director',
+            ],
+            [
+                'position' => 'Writer',
+            ],
+            [
+                'position' => 'Producer',
+            ],
+        ]);
+
+        DB::table('positions')->insert([
             [
                 'content_id' => 1,
                 'staff_id' => 3,
-                'role' => 'Director',
-                'character_id' => null,
+                'position_type_id' => 1,
             ],
             [
                 'content_id' => 1,
                 'staff_id' => 4,
-                'role' => 'Director',
-                'character_id' => null,
+                'position_type_id' => 1,
             ],
         ]);
 

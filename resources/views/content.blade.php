@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Content Page</title>
 </head>
 
@@ -14,6 +16,9 @@
                 <th> Episode Count </th>
                 <th> Length </th>
                 <th> Year </th>
+                <th> Genres </th>
+                <th> Crew </th>
+                <th> Cast </th>
             </tr>
         </thead>
         <tbody>
@@ -29,8 +34,13 @@
                     @endforeach
                 <td>
                 <td>
-                    @foreach($content->staff as $staff)
-                    {{ $staff->name }} ({{ $staff->pivot->role }}),
+                    @foreach($content->crew as $crew)
+                    {{ $crew->name }} ({{ $crew->position }}),
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($content->cast as $cast)
+                    {{ $cast->name }} ({{ $cast->character }}),
                     @endforeach
                 </td>
             </tr>

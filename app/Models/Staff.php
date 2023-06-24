@@ -16,11 +16,28 @@ class Staff extends Model
     {
         return $this->hasMany(Role::class);
     }
+
     /**
-     * Get the content for the staff.
+     * Get the positions for the staff.
      */
-    public function content()
+    public function positions()
     {
-        return $this->belongsToMany(Content::class)->withPivot('role');
+        return $this->hasMany(Position::class);
+    }
+
+    /**
+     * Get the content where staff is part of the cast.
+     */
+    public function content_cast()
+    {
+        return $this->belongsToMany(Content::class, 'roles')->withPivot('role');
+    }
+
+    /**
+     * Get the content where staff is part of the crew.
+     */
+    public function content_crew()
+    {
+        return $this->belongsToMany(Content::class, 'positions');
     }
 }

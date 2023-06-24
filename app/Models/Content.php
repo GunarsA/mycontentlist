@@ -18,11 +18,25 @@ class Content extends Model
     }
 
     /**
-     * Get the staff for the content.
+     * Get the crew for the content.
      */
-    public function staff()
+    public function crew()
     {
-        return $this->belongsToMany(Staff::class, 'roles')->withPivot('role');
+        return $this
+            ->belongsToMany(Staff::class, 'positions')
+            ->join('position_types', 'position_types.id', '=', 'positions.position_type_id')
+            ->select('staff.name as name', 'position_types.position as position');
+    }
+
+    /**
+     * Get the cast for the content.
+     */
+    public function cast()
+    {
+        return $this
+            ->belongsToMany(Staff::class, 'roles')
+            ->join('characters', 'characters.id', '=', 'roles.character_id')
+            ->select('staff.name as name', 'characters.name as character');
     }
 
     /**
