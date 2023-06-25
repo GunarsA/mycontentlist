@@ -80,31 +80,24 @@
                         </select>
                     </div>
                 </div>
+            </div>
+            {{-- <div class="flex flex-wrap -mx-3 mb-2">
+                @foreach ($positions as $position)
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="director">
-                        Director
-                    </label>
+                    <label for="{{ $position->position }}" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">{{ $position->position }}</label>
                     <div class="relative">
-                        <select name="director[]" id="director" class="block appearance-none w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <select name="{{ $position->position }}[]" id="{{ $position->position }}" class="block appearance-none w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            @foreach ($staff as $stafff)
+                                <option value="{{ $stafff->id }}">{{ $stafff->name }}</option>
+                            @endforeach
                         </select>
+                    @endforeach
                     </div>
                 </div>
+            </div> --}}
+            <div class="block">
+                <input type="submit" value="Submit" class="bg-gray-20 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
             </div>
         </form>
     </div>
-    <form method="POST" class="w-full max-w-lg"
-        action={{ action([App\Http\Controllers\ContentController::class, 'store']) }}>
-        @csrf
-        @foreach ($positions as $position)
-            <label for="{{ $position->position }}">{{ $position->position }}</label>
-            <select name="{{ $position->position }}[]" id="{{ $position->position }}" multiple>
-                @foreach ($staff as $stafff)
-                    <option value="{{ $stafff->id }}">{{ $stafff->name }}</option>
-                @endforeach
-            </select>
-        @endforeach
-
-        <input type="submit" value="Submit"
-            class="bg-gray-50 border border-gray-300 text-sm rounded focus:ring-blue-500 focus:border-blue-500 w-20 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    </form>
 @endsection
