@@ -17,6 +17,7 @@
     <tbody>
         @foreach($content as $content)
         <tr>
+            <td><img src="{{url('storage/' . $content->image_path)}}"></td>
             <td> <a href={{ route('content.show', ['content' => $content->id])}}>{{ $content->title }}</a> </td>
             <td> {{ $content->type->type }} </td>
             <td> {{ $content->episode_cnt }} </td>
