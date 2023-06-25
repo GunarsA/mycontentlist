@@ -9,13 +9,13 @@
 
 <body>
     <h1>{{ $content->title }}</h1>
-    <form method="POST" action={{ action([App\Http\Controllers\RatingController::class, 'update', ['rating' => $rating]]) }}>
+    <form method="POST" action={{ action([App\Http\Controllers\RatingController::class, 'store']) }}>
         @csrf
         <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
         <input type="hidden" name="content_id" id="content_id" value="{{ $content->id }}">
 
         <label for="rating">Rating</label>
-        <input type="number" name="rating" id="rating" min="1" max="10" value={{old('rating', $rating->rating)}}>
+        <input type="number" name="rating" id="rating" min="1" max="10" value={{old('rating')}}>
 
         <label for="progress">Progress</label>
         <input type="number" name="progress" id="progress" min="0" max={{ $content->episode_cnt }}>
