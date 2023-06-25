@@ -37,6 +37,16 @@ class Content extends Model
     }
 
     /**
+     * Get the crew of the specified position for the content.
+     */
+    public function crewByPosition(string $position)
+    {
+        return $this
+            ->belongsToMany(Staff::class, 'positions')
+            ->where('position_type_id', '=', $position);
+    }
+
+    /**
      * Get the cast for the content.
      */
     public function cast()

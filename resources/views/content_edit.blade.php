@@ -35,14 +35,14 @@
         <label for="genre">Genre</label>
         <select name="genre[]" id="genre" multiple>
             @foreach($genres as $genre)
-            <option value="{{ $genre->id }}">{{ $genre->genre }}</option>
+            <option value="{{ $genre->id }}" {{ (collect(old('genre[]', $content->genres->pluck('id')))->contains($genre->id)) ? 'selected':'' }}>{{ $genre->genre }}</option>
             @endforeach
         </select>
         
         <label for="studio">Studio</label>
         <select name="studio[]" id="studio" multiple>
             @foreach($studios as $studio)
-            <option value="{{ $studio->id }}">{{ $studio->studio }}</option>
+            <option value="{{ $studio->id }}" {{ (collect(old('studio[]', $content->studios->pluck('id')))->contains($studio->id)) ? 'selected':'' }}>{{ $studio->name }}</option>
             @endforeach
         </select>
 
@@ -50,7 +50,7 @@
         <label for="{{ $position->position }}">{{ $position->position }}</label>
         <select name="{{ $position->position }}[]" id="{{ $position->position }}" multiple>
             @foreach($staff as $stafff)
-            <option value="{{ $stafff->id }}">{{ $stafff->name }}</option>
+            <option value="{{ $stafff->id }}" {{ (collect(old($position->position . "[]", $content->crewByPosition($position->id)->pluck('staff.id')))->contains($stafff->id)) ? 'selected':'' }}>{{ $stafff->name }}</option>
             @endforeach
         </select>
         @endforeach

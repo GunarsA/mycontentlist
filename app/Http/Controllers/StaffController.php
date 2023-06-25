@@ -21,7 +21,7 @@ class StaffController extends Controller
      */
     public function create()
     {
-        //
+        return view('staff_create');
     }
 
     /**
@@ -29,7 +29,10 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $staff = new Staff();
+        $staff->name = $request->name;
+        $staff->save();
+        return redirect('staff');
     }
 
     /**
@@ -37,7 +40,8 @@ class StaffController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        return view('staff_show', compact('staff'));
     }
 
     /**
@@ -45,7 +49,8 @@ class StaffController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        return view('staff_edit', compact('staff'));
     }
 
     /**
@@ -53,7 +58,10 @@ class StaffController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        $staff->name = $request->name;
+        $staff->save();
+        return redirect('staff');
     }
 
     /**
@@ -61,6 +69,8 @@ class StaffController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        $staff->delete();
+        return redirect('staff');
     }
 }

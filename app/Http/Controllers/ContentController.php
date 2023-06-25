@@ -27,7 +27,7 @@ class ContentController extends Controller
         $positions= \App\Models\PositionType::all();
         $studios = \App\Models\Studio::all();
         $characters = \App\Models\Character::all();
-        return view('content_new', compact('types', 'genres', 'staff', 'characters', 'studios', 'positions'));
+        return view('content_create', compact('types', 'genres', 'staff', 'characters', 'studios', 'positions'));
     }
 
     /**
@@ -97,7 +97,7 @@ class ContentController extends Controller
 
         $positions = \App\Models\PositionType::all();
         foreach ($positions as $position) {
-            $content->crew()->sync($request[$position->position], ['position_type_id' => $position->id]);
+            $content->crew()->attach($request[$position->position], ['position_type_id' => $position->id]);
         }
 
         return redirect('/content');

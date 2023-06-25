@@ -9,6 +9,7 @@
 
 <body>
     <h1>Content Page</h1>
+    <a href={{ action([App\Http\Controllers\ContentController::class, 'create']) }}>New Content</a>
     <table>
         <thead>
             <tr>
@@ -25,7 +26,7 @@
         <tbody>
             @foreach($content as $content)
             <tr>
-                <td> {{ $content->title }} </td>
+                <td> <a href={{ route('content.show', ['content' => $content->id])}}>{{ $content->title }}</a> </td>
                 <td> {{ $content->type->type }} </td>
                 <td> {{ $content->episode_cnt }} </td>
                 <td> {{ $content->length }} </td>

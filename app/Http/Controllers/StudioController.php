@@ -21,7 +21,7 @@ class StudioController extends Controller
      */
     public function create()
     {
-        //
+        return view('studio_create');
     }
 
     /**
@@ -29,7 +29,10 @@ class StudioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $studio = new Studio();
+        $studio->name = $request->name;
+        $studio->save();
+        return redirect('studio');
     }
 
     /**
@@ -37,7 +40,8 @@ class StudioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $studio = Studio::findOrFail($id);
+        return view('studio_show', compact('studio'));
     }
 
     /**
@@ -45,7 +49,8 @@ class StudioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $studio = Studio::findOrFail($id);
+        return view('studio_edit', compact('studio'));
     }
 
     /**
@@ -53,7 +58,10 @@ class StudioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $studio = Studio::findOrFail($id);
+        $studio->name = $request->name;
+        $studio->save();
+        return redirect('studio');
     }
 
     /**
@@ -61,6 +69,8 @@ class StudioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $studio = Studio::findOrFail($id);
+        $studio->delete();
+        return redirect('studio');
     }
 }

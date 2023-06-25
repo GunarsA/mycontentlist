@@ -9,6 +9,7 @@
 
 <body>
     <h1>{{$content->title}}</h1>
+    <a href={{ action([App\Http\Controllers\ContentController::class, 'edit'], ['content' => $content]) }}>Edit</a>
     <h3>Content Type</h3>
     <p>{{ $content->type->type }}</p>
     <h3>Episode Count</h3>
@@ -26,7 +27,7 @@
     <h3>Studios</h3>
     <ul>
         @foreach($content->studios as $studio)
-        <li>{{ $studio->studio }}</li>
+        <li>{{ $studio->name }}</li>
         @endforeach
     </ul>
     <h3>Crew</h3>

@@ -35,7 +35,7 @@
         <label for="studio">Studio</label>
         <select name="studio[]" id="studio" multiple>
             @foreach($studios as $studio)
-            <option value="{{ $studio->id }}">{{ $studio->studio }}</option>
+            <option value="{{ $studio->id }}">{{ $studio->name }}</option>
             @endforeach
         </select>
 
