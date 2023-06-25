@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContentController;
+use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StudioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +19,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('content', ContentController::class);
+Route::resource('character', CharacterController::class);
+Route::resource('genre', GenreController::class);
+Route::resource('staff', StaffController::class);
+Route::resource('studio', StudioController::class);
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('content');
 });
 
 Route::get('/dashboard', function () {
