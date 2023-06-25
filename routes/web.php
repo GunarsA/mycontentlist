@@ -26,6 +26,7 @@ Route::resource('genre', GenreController::class);
 Route::resource('staff', StaffController::class);
 Route::resource('studio', StudioController::class);
 Route::resource('user', ProfileController::class);
+Route::resource('character', CharacterController::class);
 Route::resource('rating', RatingController::class, ['except' => ['create', 'edit', 'show']]);
 Route::get('rating/create/{content_slug}', [RatingController::class, 'create'])->name('rating.create');
 Route::get('rating/edit/{rating_id}', [RatingController::class, 'edit'])->name('rating.edit');

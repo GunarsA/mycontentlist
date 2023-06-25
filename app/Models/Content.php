@@ -26,9 +26,9 @@ class Content extends Model
     }
 
     /**
-     * Get the crew for the content.
+     * Get the staff for the content.
      */
-    public function crew()
+    public function staff()
     {
         return $this
             ->belongsToMany(Staff::class, 'positions')
@@ -39,22 +39,11 @@ class Content extends Model
     /**
      * Get the crew of the specified position for the content.
      */
-    public function crewByPosition(string $position)
+    public function staffByPosition(string $position)
     {
         return $this
             ->belongsToMany(Staff::class, 'positions')
             ->where('position_type_id', '=', $position);
-    }
-
-    /**
-     * Get the cast for the content.
-     */
-    public function cast()
-    {
-        return $this
-            ->belongsToMany(Staff::class, 'roles')
-            ->join('characters', 'characters.id', '=', 'roles.character_id')
-            ->select('staff.name as name', 'characters.name as character');
     }
 
     /**

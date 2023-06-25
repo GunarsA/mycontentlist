@@ -48,6 +48,13 @@
         </select>
         @endforeach
 
+        <label for="character">Character</label>
+        <select name="character[]" id="character" multiple>
+            @foreach($characters as $character)
+            <option value="{{ $character->id }}">{{ $character->name }}</option>
+            @endforeach
+        </select>
+
         <label for="image">Image</label>
         <input type="file" name="image" id="image">
 

@@ -10,8 +10,8 @@
             <th> Length </th>
             <th> Year </th>
             <th> Genres </th>
-            <th> Crew </th>
-            <th> Cast </th>
+            <th> Crew & Cast </th>
+            <th>Characters</th>
         </tr>
     </thead>
     <tbody>
@@ -29,13 +29,13 @@
                 @endforeach
             <td>
             <td>
-                @foreach($content->crew as $crew)
-                {{ $crew->name }} ({{ $crew->position }}),
+                @foreach($content->staff as $staff)
+                {{ $staff->name }} ({{ $staff->position }}),
                 @endforeach
             </td>
             <td>
-                @foreach($content->cast as $cast)
-                {{ $cast->name }} ({{ $cast->character }}),
+                @foreach($content->characters as $character)
+                {{ $character->name }},
                 @endforeach
             </td>
         </tr>

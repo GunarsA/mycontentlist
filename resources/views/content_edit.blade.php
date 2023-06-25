@@ -50,10 +50,17 @@
         <label for="{{ $position->position }}">{{ $position->position }}</label>
         <select name="{{ $position->position }}[]" id="{{ $position->position }}" multiple>
             @foreach($staff as $stafff)
-            <option value="{{ $stafff->id }}" {{ (collect(old($position->position . "[]", $content->crewByPosition($position->id)->pluck('staff.id')))->contains($stafff->id)) ? 'selected':'' }}>{{ $stafff->name }}</option>
+            <option value="{{ $stafff->id }}" {{ (collect(old($position->position . "[]", $content->staffByPosition($position->id)->pluck('staff.id')))->contains($stafff->id)) ? 'selected':'' }}>{{ $stafff->name }}</option>
             @endforeach
         </select>
         @endforeach
+
+        <label for="character">Character</label>
+        <select name="character[]" id="character" multiple>
+            @foreach($characters as $character)
+            <option value="{{ $character->id }}" {{ (collect(old('character[]', $content->characters->pluck('id')))->contains($character->id)) ? 'selected':'' }}>{{ $character->name }}</option>
+            @endforeach
+        </select>
 
         <input type="submit" value="Submit">
     </form>

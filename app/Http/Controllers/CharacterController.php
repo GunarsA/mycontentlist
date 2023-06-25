@@ -21,7 +21,7 @@ class CharacterController extends Controller
      */
     public function create()
     {
-        //
+        return view('character_create');
     }
 
     /**
@@ -29,7 +29,11 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $character = new Character();
+        $character->name = $request->name;
+        $character->save();
+
+        return redirect()->route('character.index');
     }
 
     /**
@@ -37,7 +41,8 @@ class CharacterController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $character = Character::find($id);
+        return view('character_show', compact('character'));
     }
 
     /**
@@ -45,7 +50,8 @@ class CharacterController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $character = Character::find($id);
+        return view('character_edit', compact('character'));
     }
 
     /**
@@ -53,7 +59,11 @@ class CharacterController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $character = Character::find($id);
+        $character->name = $request->name;
+        $character->save();
+
+        return redirect()->route('character.index');
     }
 
     /**
@@ -61,6 +71,9 @@ class CharacterController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $character = Character::find($id);
+        $character->delete();
+
+        return redirect()->route('character.index');
     }
 }

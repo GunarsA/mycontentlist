@@ -30,16 +30,10 @@
         <li>{{ $studio->name }}</li>
         @endforeach
     </ul>
-    <h3>Crew</h3>
+    <h3>Crew & Crew</h3>
     <ul>
-        @foreach($content->crew as $crew)
-        <li>{{ $crew->name }} ({{ $crew->position }})</li>
-        @endforeach
-    </ul>
-    <h3>Cast</h3>
-    <ul>
-        @foreach($content->cast as $cast)
-        <li>{{ $cast->name }} ({{ $cast->character }})</li>
+        @foreach($content->staff as $staff)
+        <li>{{ $staff->name }} ({{ $staff->position }})</li>
         @endforeach
     </ul>
 

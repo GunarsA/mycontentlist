@@ -13,7 +13,7 @@
         @csrf
         @method('PUT')
         
-        <label for="name">Genre</label>
+        <label for="name">Name</label>
         <input type="text" name="name" id="name" value="{{old('name', $studio->name)}}" required>
     </form>
 </body>

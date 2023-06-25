@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('content_id')->constrained()->cascadeOnDelete();
             $table->foreignId('staff_id')->constrained()->cascadeOnDelete();
             $table->foreignId('position_type_id')->constrained()->cascadeOnDelete();
+            $table->unique(['content_id', 'staff_id', 'position_type_id']);
             $table->timestamps();
         });
     }

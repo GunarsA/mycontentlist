@@ -110,19 +110,6 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        DB::table('roles')->insert([
-            [
-                'content_id' => 1,
-                'staff_id' => 1,
-                'character_id' => 1,
-            ],
-            [
-                'content_id' => 1,
-                'staff_id' => 2,
-                'character_id' => 2,
-            ],
-        ]);
-
         DB::table('position_types')->insert([
             [
                 'position' => 'Director',
@@ -132,6 +119,9 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'position' => 'Producer',
+            ],
+            [
+                'position' => 'Actor',
             ],
         ]);
 
@@ -145,6 +135,27 @@ class DatabaseSeeder extends Seeder
                 'content_id' => 1,
                 'staff_id' => 4,
                 'position_type_id' => 1,
+            ],
+            [
+                'content_id' => 1,
+                'staff_id' => 1,
+                'position_type_id' => 4,
+            ],
+            [
+                'content_id' => 1,
+                'staff_id' => 2,
+                'position_type_id' => 4,
+            ],
+        ]);
+
+        DB::table('content_characters')->insert([
+            [
+                'content_id' => 1,
+                'character_id' => 1,
+            ],
+            [
+                'content_id' => 1,
+                'character_id' => 2,
             ],
         ]);
 
