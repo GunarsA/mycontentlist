@@ -7,6 +7,7 @@ use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudioController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,16 @@ use App\Http\Controllers\StudioController;
 */
 
 Route::resource('content', ContentController::class);
-Route::resource('character', CharacterController::class);
+// Route::resource('character', CharacterController::class);
 Route::resource('genre', GenreController::class);
 Route::resource('staff', StaffController::class);
 Route::resource('studio', StudioController::class);
+Route::resource('user', ProfileController::class);
+Route::resource('rating', RatingController::class, ['except' => ['create', 'edit', 'show']]);
+Route::get('rating/create/{content_slug}', [RatingController::class, 'create'])->name('rating.create');
+Route::get('rating/edit/{rating_id}', [RatingController::class, 'edit'])->name('rating.edit');
+Route::get('rating/{username}/{rating_id}', [RatingController::class, 'show'])->name('rating.show');
+
 
 Route::get('/', function () {
     return redirect('content');
