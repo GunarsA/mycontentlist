@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form method="POST" action={{ action([App\Http\Controllers\ContentController::class, 'store']) }}>
+    <form method="POST" action={{ action([App\Http\Controllers\ContentController::class, 'store']) }} enctype="multipart/form-data">
         @csrf
         <label for="title">Title</label>
         <input type="text" name="title" id="title" value="{{old('title')}}" required>
@@ -47,6 +47,9 @@
             @endforeach
         </select>
         @endforeach
+
+        <label for="image">Image</label>
+        <input type="file" name="image" id="image">
 
         <input type="submit" value="Submit">
     </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Content;
 
 class ContentController extends Controller
@@ -51,6 +52,10 @@ class ContentController extends Controller
         foreach ($positions as $position) {
             $content->crew()->attach($request[$position->position], ['position_type_id' => $position->id]);
         }
+
+        $path = $request->file('image')->store('images', 'public');
+        $content->image_path = $path;
+        $content->save();
 
         return redirect('/content');
     }

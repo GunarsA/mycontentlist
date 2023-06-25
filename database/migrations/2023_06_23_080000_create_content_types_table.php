@@ -16,10 +16,6 @@ return new class extends Migration
             $table->string('type');
             $table->timestamps();
         });
-
-        Schema::table('contents', function (Blueprint $table) {
-            $table->foreignId('content_type_id')->constrained()->cascadeOnDelete();
-        });
     }
 
     /**
@@ -27,10 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contents', function (Blueprint $table) {
-            $table->dropForeign(['content_type_id']);
-        });
-
         Schema::dropIfExists('content_types');
     }
 };
