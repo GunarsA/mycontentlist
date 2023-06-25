@@ -10,6 +10,14 @@ class Staff extends Model
     use HasFactory;
 
     /**
+     * Get the content for the staff.
+     */
+    public function content()
+    {
+        return $this->belongsToMany(Content::class, 'positions');
+    }
+
+    /**
      * Get the roles for the staff.
      */
     public function roles()

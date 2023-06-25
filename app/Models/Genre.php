@@ -14,6 +14,6 @@ class Genre extends Model
      */
     public function content()
     {
-        return $this->belongsToMany(Content::class)->withPivot('ContentGenre');
+        return $this->belongsToMany(Content::class, 'content_genres');
     }
 }
