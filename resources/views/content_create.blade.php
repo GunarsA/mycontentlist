@@ -1,7 +1,8 @@
 @extends('layout')
 @section('content')
     <div class="grid place-items-center">
-        <form class="w-full max-w-lg">
+        <form class="w-full max-w-lg" action={{ action([App\Http\Controllers\ContentController::class, 'store']) }}>
+            @csrf
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="title">
@@ -54,42 +55,46 @@
                         class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                 </div>
             </div>
+            <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="genre">
+                        Genre
+                    </label>
+                    <div class="relative">
+                        <select name="genre[]" id="genre" class="block appearance-none w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            @foreach ($genres as $genre)
+                                <option value="{{ $genre->id }}">{{ $genre->genre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="studio">
+                        Studio
+                    </label>
+                    <div class="relative">
+                        <select name="genre[]" id="studio" class="block appearance-none w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            @foreach ($studios as $studio)
+                            <option value="{{ $studio->id }}">{{ $studio->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="director">
+                        Director
+                    </label>
+                    <div class="relative">
+                        <select name="director[]" id="director" class="block appearance-none w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        </select>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
     <form method="POST" class="w-full max-w-lg"
         action={{ action([App\Http\Controllers\ContentController::class, 'store']) }}>
         @csrf
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" value="{{ old('title') }}" required>
-        <label for="content_type">Content Type</label>
-        <select name="content_type" id="content_type"
-            class="h-full bg-gray-50 border border-gray-300 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-24 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            @foreach ($types as $type)
-                <option value="{{ $type->id }}" {{ old('content_type') == $type->id ? 'selected' : '' }}>
-                    {{ $type->type }}</option>
-            @endforeach
-        </select>
-        <label for="episode_cnt">Episode Count</label>
-        <input type="number" name="episode_cnt" id="episode_cnt" required>
-        <label for="length">Length</label>
-        <input type="number" name="length" id="length" required>
-        <label for="year">Year</label>
-        <input type="number" name="year" id="year" required>
-        <br>
-
-        <label for="genre">Genre</label>
-        <select name="genre[]" id="genre" multiple class="">
-            @foreach ($genres as $genre)
-                <option value="{{ $genre->id }}">{{ $genre->genre }}</option>
-            @endforeach
-        </select>
-        <label for="studio">Studio</label>
-        <select name="studio[]" id="studio" multiple class="">
-            @foreach ($studios as $studio)
-                <option value="{{ $studio->id }}">{{ $studio->name }}</option>
-            @endforeach
-        </select>
-
         @foreach ($positions as $position)
             <label for="{{ $position->position }}">{{ $position->position }}</label>
             <select name="{{ $position->position }}[]" id="{{ $position->position }}" multiple>
