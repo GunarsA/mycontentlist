@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use App\Models\Content;
 
 class ContentController extends Controller
@@ -28,6 +29,7 @@ class ContentController extends Controller
         $positions = \App\Models\PositionType::all();
         $studios = \App\Models\Studio::all();
         $characters = \App\Models\Character::all();
+        Log::info('New content creation');
         return view('content_create', compact('types', 'genres', 'staff', 'characters', 'studios', 'positions'));
     }
 
