@@ -16,11 +16,12 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('content_id')->constrained()->cascadeOnDelete();
             $table->integer('rating')->nullable();
-            $table->integer('progress')->default(1);
+            $table->integer('progress')->default(0);
             $table->boolean('is_favorite')->default(false);
             $table->date('date_started')->nullable();
             $table->date('date_finished')->nullable();
             $table->text('review')->nullable();
+            $table->unique(['user_id', 'content_id']);
             $table->timestamps();
         });
     }

@@ -32,10 +32,16 @@
         <li>{{ $studio->name }}</li>
         @endforeach
     </ul>
-    <h3>Crew & Crew</h3>
+    <h3>Crew & Cast</h3>
     <ul>
         @foreach($content->staff as $staff)
         <li>{{ $staff->name }} ({{ $staff->position }})</li>
+        @endforeach
+    </ul>
+    <h3>Characters</h3>
+    <ul>
+        @foreach($content->characters as $character)
+        <li>{{ $character->name }}</li>
         @endforeach
     </ul>
 

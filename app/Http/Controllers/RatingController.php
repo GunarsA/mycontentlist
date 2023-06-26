@@ -26,6 +26,13 @@ class RatingController extends Controller
     {
         $user = Auth::user();
         $content = \App\Models\Content::where('id', $content_id)->first();
+        if (!$content) {
+            return abort(404);
+        }
+        if (Rating::where('user_id', $user->id)->where('content_id', $content->id)->first()) {
+            $rating = Rating::where('user_id', $user->id)->where('content_id', $content->id)->first();
+            return view('rating_edit', compact('rating'));
+        }
 
         return view('rating_create', compact('user', 'content'));
     }
@@ -55,7 +62,7 @@ class RatingController extends Controller
     {
         $rating = Rating::where('id', $id)->first();
 
-        if(!$rating){
+        if (!$rating) {
             return abort(404);
         }
 
@@ -67,17 +74,16 @@ class RatingController extends Controller
      */
     public function edit(string $id)
     {
-        
+
         $rating = Rating::where('id', $id)->first();
-        if(!$rating){
+        if (!$rating) {
             return abort(404);
         }
-        if(!Gate::allows('rate', $rating)){
+        if (!Gate::allows('rate', $rating)) {
             abort(403);
         }
-        $user = $rating->user;
 
-        return view('rating_edit', compact('user', 'rating'));
+        return view('rating_edit', compact('rating'));
     }
 
     /**

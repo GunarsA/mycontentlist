@@ -12,7 +12,7 @@
     <form method="POST" action={{ action([App\Http\Controllers\RatingController::class, 'update'], ['rating' => $rating]) }}>
         @csrf
         @method('PUT')
-        <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
+        <input type="hidden" name="user_id" id="user_id" value="{{ $rating->user->id }}">
         <input type="hidden" name="content_id" id="content_id" value="{{ $rating->content_id }}">
 
         <label for="rating">Rating</label>
