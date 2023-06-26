@@ -33,6 +33,9 @@
                 <td> {{ $rating->date_started }} </td>
                 <td> {{ $rating->date_finished }} </td>
                 <td> {{ $rating->review }} </td>
+                <td>
+                    <a href="{{ action([App\Http\Controllers\RatingController::class, 'show'], [$rating->id]) }}">Show</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

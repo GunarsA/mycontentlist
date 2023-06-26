@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Rating;
 
 class RatingController extends Controller
@@ -66,7 +67,14 @@ class RatingController extends Controller
      */
     public function edit(string $id)
     {
+        
         $rating = Rating::where('id', $id)->first();
+        if(!$rating){
+            return abort(404);
+        }
+        if(!Gate::allows('rate', $rating)){
+            abort(403);
+        }
         $user = $rating->user;
 
         return view('rating_edit', compact('user', 'rating'));

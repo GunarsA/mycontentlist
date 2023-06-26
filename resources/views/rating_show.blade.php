@@ -10,6 +10,10 @@
 <body>
     <h1>{{$rating->user->name}} - {{$rating->content->title}}</h1>
 
+    <p>
+        <a href={{action([App\Http\Controllers\RatingController::class, 'edit'], [$rating->id])}}>Edit</a>
+    </p>
+
     <h3>Rating</h3>
     <p>{{ $rating->rating }}</p>
     <h3>Progress</h3>
