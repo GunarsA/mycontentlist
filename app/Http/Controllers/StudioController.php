@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Studio;
+use App\Models\User;
 
 class StudioController extends Controller
 {
@@ -13,6 +15,7 @@ class StudioController extends Controller
     public function index()
     {
         $studios = Studio::all();
+        
         return view('studio', compact('studios'));
     }
 
@@ -21,6 +24,8 @@ class StudioController extends Controller
      */
     public function create()
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         return view('studio_create');
     }
 
@@ -29,9 +34,12 @@ class StudioController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $studio = new Studio();
         $studio->name = $request->name;
         $studio->save();
+
         return redirect('studio');
     }
 
@@ -49,7 +57,10 @@ class StudioController extends Controller
      */
     public function edit(string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $studio = Studio::findOrFail($id);
+
         return view('studio_edit', compact('studio'));
     }
 
@@ -58,9 +69,12 @@ class StudioController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $studio = Studio::findOrFail($id);
         $studio->name = $request->name;
         $studio->save();
+
         return redirect('studio');
     }
 
@@ -69,8 +83,10 @@ class StudioController extends Controller
      */
     public function destroy(string $id)
     {
-        $studio = Studio::findOrFail($id);
-        $studio->delete();
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
+        $studio = Studio::findOrFail($id)->delete();
+        
         return redirect('studio');
     }
 }

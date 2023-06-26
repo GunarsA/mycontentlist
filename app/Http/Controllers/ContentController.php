@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Content;
+use App\Models\User;
 
 class ContentController extends Controller
 {
@@ -15,6 +16,7 @@ class ContentController extends Controller
     public function index()
     {
         $content = Content::all();
+
         return view('content', compact('content'));
     }
 
@@ -23,13 +25,19 @@ class ContentController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
+
         $types = \App\Models\ContentType::all();
         $genres = \App\Models\Genre::all();
         $staff = \App\Models\Staff::all();
         $positions = \App\Models\PositionType::all();
         $studios = \App\Models\Studio::all();
         $characters = \App\Models\Character::all();
+
         Log::info('New content creation');
+
         return view('content_create', compact('types', 'genres', 'staff', 'characters', 'studios', 'positions'));
     }
 
@@ -38,7 +46,10 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        //  dd($request->all());
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
+
         $content = new Content();
         $content->title = $request->title;
         $content->content_type_id = $request->content_type;
@@ -71,6 +82,7 @@ class ContentController extends Controller
     public function show(string $id)
     {
         $content = Content::findOrFail($id);
+
         return view('content_show', compact('content'));
     }
 
@@ -79,6 +91,10 @@ class ContentController extends Controller
      */
     public function edit(string $id)
     {
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
+
         $content = Content::findOrFail($id);
         $types = \App\Models\ContentType::all();
         $genres = \App\Models\Genre::all();
@@ -86,6 +102,7 @@ class ContentController extends Controller
         $positions = \App\Models\PositionType::all();
         $studios = \App\Models\Studio::all();
         $characters = \App\Models\Character::all();
+
         return view('content_edit', compact('content', 'types', 'genres', 'staff', 'characters', 'studios', 'positions'));
     }
 
@@ -94,6 +111,10 @@ class ContentController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
+
         $content = Content::findOrFail($id);
         $content->title = $request->title;
         $content->content_type_id = $request->content_type;
@@ -120,7 +141,12 @@ class ContentController extends Controller
      */
     public function destroy(string $id)
     {
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
+
         Content::findOrFail($id)->delete();
+        
         return redirect('/content');
     }
 }

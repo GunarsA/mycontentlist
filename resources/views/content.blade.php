@@ -1,6 +1,8 @@
 @extends('layout')
 @section('content')
+@if (Auth::user()->can('modify'))
 <a href={{ action([App\Http\Controllers\ContentController::class, 'create']) }}>New Content</a>
+@endif
 <table class="table-auto">
     <thead>
         <tr>
@@ -11,7 +13,7 @@
             <th> Year </th>
             <th> Genres </th>
             <th> Crew & Cast </th>
-            <th>Characters</th>
+            <th> Characters </th>
         </tr>
     </thead>
     <tbody>

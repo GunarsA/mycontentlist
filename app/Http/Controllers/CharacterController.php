@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Character;
+use App\Models\User;
 
 class CharacterController extends Controller
 {
@@ -13,6 +15,7 @@ class CharacterController extends Controller
     public function index()
     {
         $characters = Character::all();
+
         return view('character', compact('characters'));
     }
 
@@ -21,6 +24,8 @@ class CharacterController extends Controller
      */
     public function create()
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         return view('character_create');
     }
 
@@ -29,6 +34,8 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $character = new Character();
         $character->name = $request->name;
         $character->save();
@@ -42,6 +49,7 @@ class CharacterController extends Controller
     public function show(string $id)
     {
         $character = Character::find($id);
+
         return view('character_show', compact('character'));
     }
 
@@ -50,7 +58,10 @@ class CharacterController extends Controller
      */
     public function edit(string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $character = Character::find($id);
+
         return view('character_edit', compact('character'));
     }
 
@@ -59,6 +70,8 @@ class CharacterController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $character = Character::find($id);
         $character->name = $request->name;
         $character->save();
@@ -71,8 +84,9 @@ class CharacterController extends Controller
      */
     public function destroy(string $id)
     {
-        $character = Character::find($id);
-        $character->delete();
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
+        $character = Character::find($id)->delete();
 
         return redirect()->route('character.index');
     }

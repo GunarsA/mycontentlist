@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Genre;
+use App\Models\User;
 
 class GenreController extends Controller
 {
@@ -13,6 +15,7 @@ class GenreController extends Controller
     public function index()
     {
         $genres = Genre::all();
+
         return view('genre', compact('genres'));
     }
 
@@ -21,6 +24,8 @@ class GenreController extends Controller
      */
     public function create()
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         return view('genre_create');
     }
 
@@ -29,9 +34,12 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $genre = new Genre();
         $genre->genre = $request->genre;
         $genre->save();
+
         return redirect('genre');
     }
 
@@ -41,6 +49,7 @@ class GenreController extends Controller
     public function show(string $id)
     {
         $genre = Genre::findOrFail($id);
+
         return view('genre_show', compact('genre'));
     }
 
@@ -49,7 +58,10 @@ class GenreController extends Controller
      */
     public function edit(string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $genre = Genre::findOrFail($id);
+
         return view('genre_edit', compact('genre'));
     }
 
@@ -58,9 +70,12 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $genre = Genre::findOrFail($id);
         $genre->genre = $request->genre;
         $genre->save();
+
         return redirect('genre');
     }
 
@@ -69,8 +84,10 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        $genre = Genre::findOrFail($id);
-        $genre->delete();
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
+        $genre = Genre::findOrFail($id)->delete();
+
         return redirect('genre');
     }
 }

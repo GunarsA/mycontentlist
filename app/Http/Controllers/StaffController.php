@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Staff;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class StaffController extends Controller
 {
@@ -21,6 +23,8 @@ class StaffController extends Controller
      */
     public function create()
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         return view('staff_create');
     }
 
@@ -29,6 +33,8 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $staff = new Staff();
         $staff->name = $request->name;
         $staff->save();
@@ -49,6 +55,8 @@ class StaffController extends Controller
      */
     public function edit(string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $staff = Staff::findOrFail($id);
         return view('staff_edit', compact('staff'));
     }
@@ -58,6 +66,8 @@ class StaffController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+
         $staff = Staff::findOrFail($id);
         $staff->name = $request->name;
         $staff->save();
@@ -69,6 +79,8 @@ class StaffController extends Controller
      */
     public function destroy(string $id)
     {
+        Gate::allowIf(fn (User $user) => $user->is_admin);
+        
         $staff = Staff::findOrFail($id);
         $staff->delete();
         return redirect('staff');
