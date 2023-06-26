@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$rating->user->name}} {{$rating->content->name}}</title>
+    <title>{{$rating->user->name}} - {{$rating->content->title}}</title>
 </head>
 
 <body>
-    <h1>{{$rating->content->name}}</h1>
+    <h1>{{$rating->user->name}} - {{$rating->content->title}}</h1>
 
     <h3>Rating</h3>
     <p>{{ $rating->rating }}</p>

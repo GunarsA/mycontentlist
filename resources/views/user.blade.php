@@ -12,7 +12,7 @@
     <ul>
         @foreach ($users as $user)
         <li>
-            {{ $user->name }}
+            <a href={{ action([App\Http\Controllers\UserController::class, 'show'], [$user->id]) }}>{{ $user->name }}</a>
         </li>
         @endforeach
     </ul>

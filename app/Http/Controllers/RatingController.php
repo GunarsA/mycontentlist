@@ -15,16 +15,18 @@ class RatingController extends Controller
     public function index()
     {
         $ratings = Rating::all();
+
         return view('rating', compact('ratings'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($content_slug)
+    public function create($content_id)
     {
         $user = Auth::user();
-        $content = \App\Models\Content::where('id', $content_slug)->first();
+        $content = \App\Models\Content::where('id', $content_id)->first();
+
         return view('rating_create', compact('user', 'content'));
     }
 
@@ -52,6 +54,11 @@ class RatingController extends Controller
     public function show(string $id)
     {
         $rating = Rating::where('id', $id)->first();
+
+        if(!$rating){
+            return abort(404);
+        }
+
         return view('rating_show', compact('rating'));
     }
 
@@ -60,8 +67,9 @@ class RatingController extends Controller
      */
     public function edit(string $id)
     {
-        $user = Auth::user();
         $rating = Rating::where('id', $id)->first();
+        $user = $rating->user;
+
         return view('rating_edit', compact('user', 'rating'));
     }
 
@@ -88,6 +96,9 @@ class RatingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $rating = Rating::where('id', $id)->first();
+        $rating->delete();
+
+        return redirect('/rating');
     }
 }
