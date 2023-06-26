@@ -1,12 +1,14 @@
 @extends('layout')
 @section('content')
-@if (Auth::user()->can('modify'))
+@if (Auth::check() && Auth::user()->can('modify'))
 <a href={{ action([App\Http\Controllers\ContentController::class, 'create']) }}>New Content</a>
 @endif
 <table class="table-auto">
     <thead>
         <tr>
+            <th> Image </th>
             <th> Title </th>
+            <th></th>
             <th> Type </th>
             <th> Episode Count </th>
             <th> Length </th>
@@ -14,6 +16,7 @@
             <th> Genres </th>
             <th> Crew & Cast </th>
             <th> Characters </th>
+            <th> Studios </th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +24,11 @@
         <tr>
             <td><img src="{{url('storage/' . $content->image_path)}}"></td>
             <td> <a href={{ route('content.show', ['content' => $content->id])}}>{{ $content->title }}</a> </td>
+            <td>
+                <a href={{action([App\Http\Controllers\RatingController::class, 'create'], ['content_id' => $content->id])}}>
+                    rate
+                </a>
+            </td>
             <td> {{ $content->type->type }} </td>
             <td> {{ $content->episode_cnt }} </td>
             <td> {{ $content->length }} </td>
@@ -38,6 +46,11 @@
             <td>
                 @foreach($content->characters as $character)
                 {{ $character->name }},
+                @endforeach
+            </td>
+            <td>
+                @foreach($content->studios as $studio)
+                {{ $studio->name }},
                 @endforeach
             </td>
         </tr>

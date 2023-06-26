@@ -9,7 +9,7 @@
 
 <body>
     <h1>{{$content->title}}</h1>
-    @if (Auth::user()->can('modify'))
+    @if (Auth::check() && Auth::user()->can('modify'))
     <a href={{ action([App\Http\Controllers\ContentController::class, 'edit'], ['content' => $content]) }}>Edit</a>
     @endif
     <h3>Content Type</h3>

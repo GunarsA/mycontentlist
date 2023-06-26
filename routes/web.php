@@ -21,18 +21,6 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::resource('content', ContentController::class);
-Route::resource('genre', GenreController::class);
-Route::resource('staff', StaffController::class);
-Route::resource('studio', StudioController::class);
-Route::resource('character', CharacterController::class);
-Route::resource('rating', RatingController::class, ['except' => ['create']]);
-Route::resource('user', UserController::class);
-
-// Route::get('rating/edit/{rating_id}', [RatingController::class, 'edit'])->name('rating.edit');
-// Route::get('rating/{username}/{rating_id}', [RatingController::class, 'show'])->name('rating.show');
-
-
 Route::get('/', function () {
     return redirect('content');
 });
@@ -46,7 +34,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    Route::get('rating/create/{content_id}', [RatingController::class, 'create'])->name('rating.create');
+    Route::resource('character', CharacterController::class, ['only' => ['create', 'edit']]);
+    Route::resource('content', ContentController::class, ['only' => ['create', 'edit']]);
+    Route::resource('genre', GenreController::class, ['only' => ['create', 'edit']]);
+    Route::resource('rating', RatingController::class, ['only' => ['create', 'edit']]);
+    Route::resource('staff', StaffController::class, ['only' => ['create', 'edit']]);
+    Route::resource('studio', StudioController::class, ['only' => ['create', 'edit']]);
+    Route::resource('user', UserController::class, ['only' => ['create', 'edit']]);
 });
+
+Route::resource('character', CharacterController::class, ['except' => ['create', 'edit']]);
+Route::resource('content', ContentController::class, ['except' => ['create', 'edit']]);
+Route::resource('genre', GenreController::class, ['except' => ['create', 'edit']]);
+Route::resource('rating', RatingController::class, ['except' => ['create', 'edit']]);
+Route::resource('staff', StaffController::class, ['except' => ['create', 'edit']]);
+Route::resource('studio', StudioController::class, ['except' => ['create', 'edit']]);
+Route::resource('user', UserController::class);
 
 require __DIR__.'/auth.php';

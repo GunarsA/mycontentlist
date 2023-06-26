@@ -177,6 +177,26 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        DB::table('studios')->insert([
+            [
+                'name' => 'Warner Bros.',
+            ],
+            [
+                'name' => 'Village Roadshow Pictures',
+            ],
+        ]);
+
+        DB::table('content_studios')->insert([
+            [
+                'content_id' => 1,
+                'studio_id' => 1,
+            ],
+            [
+                'content_id' => 1,
+                'studio_id' => 2,
+            ],
+        ]);
+
         $content = Content::find(1);
         $content->genres()->attach([1, 2]);
     }
