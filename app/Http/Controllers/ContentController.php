@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Content;
 
 class ContentController extends Controller
@@ -48,6 +49,20 @@ class ContentController extends Controller
         if (!Gate::allows('modify')) {
             abort(403);
         }
+
+        $validated = $request->validate(
+            [
+                'title' => 'required',
+                'content_type' => 'exists:content_types,id|required',
+                'episode_cnt' => 'gt:0|integer|required',
+                'length' => 'integer|required',
+                'year' => 'integer|required',
+                'genre' => 'exists:genres,id',
+                'studio' => 'exists:studios,id',
+                'character' => 'exists:characters,id',
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            ]
+        );
 
         $content = new Content();
         $content->title = $request->title;
@@ -114,6 +129,20 @@ class ContentController extends Controller
             abort(403);
         }
 
+        $validated = $request->validate(
+            [
+                'title' => 'required',
+                'content_type' => 'exists:content_types,id|required',
+                'episode_cnt' => 'gt:0|integer|required',
+                'length' => 'integer|required',
+                'year' => 'integer|required',
+                'genre' => 'exists:genres,id',
+                'studio' => 'exists:studios,id',
+                'character' => 'exists:characters,id',
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            ]
+        );
+
         $content = Content::findOrFail($id);
         $content->title = $request->title;
         $content->content_type_id = $request->content_type;
@@ -126,10 +155,17 @@ class ContentController extends Controller
         $content->studios()->sync($request->studio);
         $content->characters()->sync($request->character);
 
+        $content->staff()->detach();
         $positions = \App\Models\PositionType::all();
         foreach ($positions as $position) {
-            $content->staff()->detach($request[$position->position], ['position_type_id' => $position->id]);
             $content->staff()->attach($request[$position->position], ['position_type_id' => $position->id]);
+        }
+
+        if ($request->hasFile('image')) {
+            Storage::disk('public')->delete($content->image_path);
+            $path = $request->file('image')->store('images', 'public');
+            $content->image_path = $path;
+            $content->save();
         }
 
         return redirect('/content');
@@ -144,8 +180,9 @@ class ContentController extends Controller
             abort(403);
         }
 
-        Content::findOrFail($id)->delete();
-        
+        $content = Content::findOrFail($id);
+        Storage::disk('public')->delete($content->image_path);
+
         return redirect('/content');
     }
 }

@@ -15,6 +15,7 @@ class StaffController extends Controller
     public function index()
     {
         $staff = Staff::all();
+
         return view('staff', compact('staff'));
     }
 
@@ -38,6 +39,7 @@ class StaffController extends Controller
         $staff = new Staff();
         $staff->name = $request->name;
         $staff->save();
+
         return redirect('staff');
     }
 
@@ -47,6 +49,10 @@ class StaffController extends Controller
     public function show(string $id)
     {
         $staff = Staff::findOrFail($id);
+        if (!$staff) {
+            abort(404);
+        }
+
         return view('staff_show', compact('staff'));
     }
 
@@ -58,6 +64,10 @@ class StaffController extends Controller
         Gate::allowIf(fn (User $user) => $user->is_admin);
 
         $staff = Staff::findOrFail($id);
+        if (!$staff) {
+            abort(404);
+        }
+
         return view('staff_edit', compact('staff'));
     }
 
@@ -71,6 +81,7 @@ class StaffController extends Controller
         $staff = Staff::findOrFail($id);
         $staff->name = $request->name;
         $staff->save();
+
         return redirect('staff');
     }
 
@@ -83,6 +94,7 @@ class StaffController extends Controller
         
         $staff = Staff::findOrFail($id);
         $staff->delete();
+        
         return redirect('staff');
     }
 }

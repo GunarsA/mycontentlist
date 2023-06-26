@@ -8,6 +8,15 @@
 </head>
 
 <body>
+    @if ($errors->any())
+    <div>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li style="color:red">{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form method="POST" action={{ action([App\Http\Controllers\ContentController::class, 'store']) }} enctype="multipart/form-data">
         @csrf
         <label for="title">Title</label>
@@ -19,23 +28,23 @@
             @endforeach
         </select>
         <label for="episode_cnt">Episode Count</label>
-        <input type="number" name="episode_cnt" id="episode_cnt" required>
+        <input type="number" name="episode_cnt" id="episode_cnt" value="{{old('episode_cnt')}}" required>
         <label for="length">Length</label>
-        <input type="number" name="length" id="length" required>
+        <input type="number" name="length" id="length" value="{{old('length')}}" required>
         <label for="year">Year</label>
-        <input type="number" name="year" id="year" required>
+        <input type="number" name="year" id="year" value="{{old('year')}}" required>
         <br>
 
         <label for="genre">Genre</label>
         <select name="genre[]" id="genre" multiple>
             @foreach($genres as $genre)
-            <option value="{{ $genre->id }}">{{ $genre->genre }}</option>
+            <option value="{{ $genre->id }}" {{ (collect(old('genre'))->contains($genre->id)) ? 'selected':'' }}>{{ $genre->genre }}</option>
             @endforeach
         </select>
         <label for="studio">Studio</label>
         <select name="studio[]" id="studio" multiple>
             @foreach($studios as $studio)
-            <option value="{{ $studio->id }}">{{ $studio->name }}</option>
+            <option value="{{ $studio->id }}" {{(collect(old('studio'))->contains($studio->id)) ? 'selected':'' }}>{{ $studio->name }}</option>
             @endforeach
         </select>
 
@@ -43,7 +52,7 @@
         <label for="{{ $position->position }}">{{ $position->position }}</label>
         <select name="{{ $position->position }}[]" id="{{ $position->position }}" multiple>
             @foreach($staff as $stafff)
-            <option value="{{ $stafff->id }}">{{ $stafff->name }}</option>
+            <option value="{{ $stafff->id }}" {{ (collect(old($position->position))->contains($stafff->id)) ? 'selected':'' }}>{{ $stafff->name }}</option>
             @endforeach
         </select>
         @endforeach
@@ -51,7 +60,7 @@
         <label for="character">Character</label>
         <select name="character[]" id="character" multiple>
             @foreach($characters as $character)
-            <option value="{{ $character->id }}">{{ $character->name }}</option>
+            <option value="{{ $character->id }}" {{(collect(old('character'))->contains($character->id)) ? 'selected':'' }}>{{ $character->name }}</option>
             @endforeach
         </select>
 

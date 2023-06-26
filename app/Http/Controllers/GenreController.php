@@ -24,7 +24,9 @@ class GenreController extends Controller
      */
     public function create()
     {
-        Gate::allowIf(fn (User $user) => $user->is_admin);
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
 
         return view('genre_create');
     }
@@ -34,7 +36,9 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::allowIf(fn (User $user) => $user->is_admin);
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
 
         $genre = new Genre();
         $genre->genre = $request->genre;
@@ -49,6 +53,9 @@ class GenreController extends Controller
     public function show(string $id)
     {
         $genre = Genre::findOrFail($id);
+        if (!$genre) {
+            abort(404);
+        }
 
         return view('genre_show', compact('genre'));
     }
@@ -58,9 +65,14 @@ class GenreController extends Controller
      */
     public function edit(string $id)
     {
-        Gate::allowIf(fn (User $user) => $user->is_admin);
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
 
         $genre = Genre::findOrFail($id);
+        if (!$genre) {
+            abort(404);
+        }
 
         return view('genre_edit', compact('genre'));
     }
@@ -70,7 +82,9 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Gate::allowIf(fn (User $user) => $user->is_admin);
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
 
         $genre = Genre::findOrFail($id);
         $genre->genre = $request->genre;
@@ -84,9 +98,11 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        Gate::allowIf(fn (User $user) => $user->is_admin);
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
 
-        $genre = Genre::findOrFail($id)->delete();
+        Genre::findOrFail($id)->delete();
 
         return redirect('genre');
     }

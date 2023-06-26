@@ -49,6 +49,10 @@ class StudioController extends Controller
     public function show(string $id)
     {
         $studio = Studio::findOrFail($id);
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
+
         return view('studio_show', compact('studio'));
     }
 
@@ -60,6 +64,9 @@ class StudioController extends Controller
         Gate::allowIf(fn (User $user) => $user->is_admin);
 
         $studio = Studio::findOrFail($id);
+        if (!Gate::allows('modify')) {
+            abort(403);
+        }
 
         return view('studio_edit', compact('studio'));
     }

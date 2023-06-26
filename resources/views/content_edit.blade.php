@@ -8,7 +8,16 @@
 </head>
 
 <body>
-    <form method="POST" action={{ action([App\Http\Controllers\ContentController::class, 'update'], ['content' => $content]) }}>
+    @if ($errors->any())
+    <div>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li style="color:red">{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    <form method="POST" action={{ action([App\Http\Controllers\ContentController::class, 'update'], ['content' => $content]) }} enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -35,14 +44,14 @@
         <label for="genre">Genre</label>
         <select name="genre[]" id="genre" multiple>
             @foreach($genres as $genre)
-            <option value="{{ $genre->id }}" {{ (collect(old('genre[]', $content->genres->pluck('id')))->contains($genre->id)) ? 'selected':'' }}>{{ $genre->genre }}</option>
+            <option value="{{ $genre->id }}" {{ (collect(old('genre', $content->genres->pluck('id')))->contains($genre->id)) ? 'selected':'' }}>{{ $genre->genre }}</option>
             @endforeach
         </select>
-        
+
         <label for="studio">Studio</label>
         <select name="studio[]" id="studio" multiple>
             @foreach($studios as $studio)
-            <option value="{{ $studio->id }}" {{ (collect(old('studio[]', $content->studios->pluck('id')))->contains($studio->id)) ? 'selected':'' }}>{{ $studio->name }}</option>
+            <option value="{{ $studio->id }}" {{ (collect(old('studio', $content->studios->pluck('id')))->contains($studio->id)) ? 'selected':'' }}>{{ $studio->name }}</option>
             @endforeach
         </select>
 
@@ -50,7 +59,7 @@
         <label for="{{ $position->position }}">{{ $position->position }}</label>
         <select name="{{ $position->position }}[]" id="{{ $position->position }}" multiple>
             @foreach($staff as $stafff)
-            <option value="{{ $stafff->id }}" {{ (collect(old($position->position . "[]", $content->staffByPosition($position->id)->pluck('staff.id')))->contains($stafff->id)) ? 'selected':'' }}>{{ $stafff->name }}</option>
+            <option value="{{ $stafff->id }}" {{ (collect(old($position->position, $content->staffByPosition($position->id)->pluck('staff.id')))->contains($stafff->id)) ? 'selected':'' }}>{{ $stafff->name }}</option>
             @endforeach
         </select>
         @endforeach
@@ -58,9 +67,15 @@
         <label for="character">Character</label>
         <select name="character[]" id="character" multiple>
             @foreach($characters as $character)
-            <option value="{{ $character->id }}" {{ (collect(old('character[]', $content->characters->pluck('id')))->contains($character->id)) ? 'selected':'' }}>{{ $character->name }}</option>
+            <option value="{{ $character->id }}" {{ (collect(old('character', $content->characters->pluck('id')))->contains($character->id)) ? 'selected':'' }}>{{ $character->name }}</option>
             @endforeach
         </select>
+
+        <label for="image">Image</label>
+        <input type="file" name="image" id="image">
+
+        <img src="{{url('storage/' . $content->image_path)}}">
+
 
         <input type="submit" value="Submit">
     </form>
