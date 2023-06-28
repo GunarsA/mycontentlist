@@ -86,10 +86,7 @@ class ContentController extends Controller
             $content->save();
         }
 
-        Log::info(
-            'Content [{content_title} ({content_id})] created by user [{user_name} ({user_id})]',
-            ['content_id' => $content->id, 'content_title' => $content->title, 'user_id' => $request->user()->id, 'user_name' => $request->user()->name]
-        );
+        Log::info('Content [' . $content->title . ' (' . $content->id . ')] created by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect('/content');
     }
@@ -174,10 +171,7 @@ class ContentController extends Controller
             $content->save();
         }
 
-        Log::info(
-            'Content [{content_title} ({content_id})] updated by user [{user_name} ({user_id})]',
-            ['content_id' => $content->id, 'content_title' => $content->title, 'user_id' => $request->user()->id, 'user_name' => $request->user()->name]
-        );
+        Log::info('Content [' . $content->title . ' (' . $content->id . ')] updated by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect('/content');
     }
@@ -197,10 +191,7 @@ class ContentController extends Controller
         }
         $content->delete();
 
-        log::info(
-            'Content [{content_title} ({content_id})] deleted by user [{user_name} ({user_id})]',
-            ['content_id' => $content->id, 'content_title' => $content->title, 'user_id' => Auth::user()->id, 'user_name' => Auth::user()->name]
-        );
+        Log::info('Content [' . $content->title . ' (' . $content->id . ')] deleted by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect('/content');
     }

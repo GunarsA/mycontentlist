@@ -9,6 +9,10 @@ class Studio extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'studio',
+    ];
+
     /**
      * Get the content for the studio.
      */

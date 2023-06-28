@@ -9,6 +9,10 @@ class Character extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+    ];
+
     /**
      * Get the content for the character.
      */

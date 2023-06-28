@@ -9,6 +9,15 @@ class Content extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'content_type_id',
+        'episode_cnt',
+        'length',
+        'year',
+        'rating',
+    ];
+
     /**
      * Get the content type for the content.
      */
