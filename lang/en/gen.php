@@ -4,6 +4,7 @@ return [
     'newGenre' => 'New Genre',
     'action' => 'Action',
     'scifi' => 'Sci-Fi',
+    'sci-fi' => 'Sci-Fi',
     'comedy' => 'Comedy',
     'delete' => 'Delete',
     'content' => 'Content',

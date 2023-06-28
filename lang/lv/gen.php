@@ -4,6 +4,7 @@ return [
     'newGenre' => 'Pievienot žanru',
     'action' => 'Asa sižeta',
     'scifi' => 'Zinātniskā fantastika',
+    'sci-fi' => 'Zinātniskā fantastika',
     'comedy' => 'Komēdija',
     'delete' => 'Dzēst',
     'content' => 'Saturs',
@@ -17,4 +18,6 @@ return [
     'review' => 'Atsauksme',
     'progress' => 'Progress',
     'show' => 'Parādīt',
+    'Action' => 'Action',
+    'genAction' => 'lmao',
 ];

@@ -6,7 +6,7 @@
     <ul class="space-y-2">
         @foreach ($genres as $genre)
         <li class="flex items-center justify-between bg-white rounded-lg p-4 shadow-md">
-            <a href="{{ route('genre.show', ['genre' => $genre->id]) }}" class="text-blue-500 hover:underline">{{ $genre->genre }}</a>
+            <a href="{{ route('genre.show', ['genre' => $genre->id]) }}" class="text-blue-500 hover:underline">{{ __('gen.'.strtolower($genre->genre)) }}</a>
             <form method="POST" action="{{ route('genre.destroy', $genre->id) }}" class="inline-block">
                 @csrf
                 @method('DELETE')
