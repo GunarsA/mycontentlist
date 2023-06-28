@@ -1,4 +1,4 @@
-@extends('layouts/ratings')
+@extends('layout')
 @section('content')
     <div class="mx-auto max-w-screen">
         <h1 class="text-3xl font-bold mb-6">Ratings</h1>

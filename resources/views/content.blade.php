@@ -4,7 +4,6 @@
         <a href={{ action([App\Http\Controllers\ContentController::class, 'create']) }}>New Content</a>
     @endif
     <div class="mx-auto max-w-screen">
-        <h1 class="text-3xl font-bold mb-6">Ratings</h1>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
