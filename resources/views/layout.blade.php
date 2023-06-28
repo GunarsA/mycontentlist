@@ -18,6 +18,10 @@
               <a href="{{ route('user.show', Auth::user()->id) }}" class="text-sm text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-400 ml-4">
                 {{ Auth::user()->name }}
               </a>
+            @else
+              <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-400 ml-4">
+                Login
+              </a>
             @endif
             <a href={{ route('profile.edit') }} class="text-sm text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-400 ml-4">
               Dashboard
