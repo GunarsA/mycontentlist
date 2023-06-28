@@ -21,7 +21,7 @@
 
     <div class="mb-4">
         <label for="rating" class="block font-medium text-gray-700">Rating</label>
-        <input type="text" name="rating" id="rating" min="0" max="10"
+        <input type="text" name="rating" id="rating" min="1" max="10"
             value="{{ old('rating', $rating->rating) }}"
             class="border-gray-300 focus:border-blue-500 focus:ring-blue-500 block w-full rounded-md shadow-sm mt-1">
     </div>
