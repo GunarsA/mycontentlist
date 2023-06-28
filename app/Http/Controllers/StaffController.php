@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\Staff;
 use App\Models\User;
-use Illuminate\Support\Facades\Gate;
 
 class StaffController extends Controller
 {
@@ -39,6 +41,8 @@ class StaffController extends Controller
         $staff = new Staff();
         $staff->name = $request->name;
         $staff->save();
+
+        Log::info('Staff [' . $staff->name . ' (' . $staff->id . ')] created by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect('staff');
     }
@@ -82,6 +86,8 @@ class StaffController extends Controller
         $staff->name = $request->name;
         $staff->save();
 
+        Log::info('Staff [' . $staff->name . ' (' . $staff->id . ')] updated by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
+
         return redirect('staff');
     }
 
@@ -94,6 +100,8 @@ class StaffController extends Controller
         
         $staff = Staff::findOrFail($id);
         $staff->delete();
+
+        Log::info('Staff [' . $staff->name . ' (' . $staff->id . ')] deleted by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
         
         return redirect('staff');
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\Studio;
 use App\Models\User;
 
@@ -39,6 +41,8 @@ class StudioController extends Controller
         $studio = new Studio();
         $studio->name = $request->name;
         $studio->save();
+
+        Log::info('Studio [' . $studio->name . ' (' . $studio->id . ')] created by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect('studio');
     }
@@ -82,6 +86,8 @@ class StudioController extends Controller
         $studio->name = $request->name;
         $studio->save();
 
+        Log::info('Studio [' . $studio->name . ' (' . $studio->id . ')] updated by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
+
         return redirect('studio');
     }
 
@@ -92,7 +98,10 @@ class StudioController extends Controller
     {
         Gate::allowIf(fn (User $user) => $user->is_admin);
 
-        $studio = Studio::findOrFail($id)->delete();
+        $studio = Studio::findOrFail($id);
+        $studio->delete();
+
+        Log::info('Studio [' . $studio->name . ' (' . $studio->id . ')] deleted by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
         
         return redirect('studio');
     }

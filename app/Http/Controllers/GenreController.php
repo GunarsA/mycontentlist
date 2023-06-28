@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\Genre;
-use App\Models\User;
 
 class GenreController extends Controller
 {
@@ -43,6 +44,8 @@ class GenreController extends Controller
         $genre = new Genre();
         $genre->genre = $request->genre;
         $genre->save();
+
+        Log::info('Genre [' . $genre->genre . ' (' . $genre->id . ')] created by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect('genre');
     }
@@ -90,6 +93,8 @@ class GenreController extends Controller
         $genre->genre = $request->genre;
         $genre->save();
 
+        Log::info('Genre [' . $genre->genre . ' (' . $genre->id . ')] updated by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
+
         return redirect('genre');
     }
 
@@ -102,7 +107,10 @@ class GenreController extends Controller
             abort(403);
         }
 
-        Genre::findOrFail($id)->delete();
+        $genre = Genre::findOrFail($id);
+        $genre->delete();
+
+        Log::info('Genre [' . $genre->genre . ' (' . $genre->id . ')] deleted by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect('genre');
     }

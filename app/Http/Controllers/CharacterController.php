@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Character;
 
 class CharacterController extends Controller
@@ -44,7 +45,7 @@ class CharacterController extends Controller
         $character->name = $request->name;
         $character->save();
 
-        // Log::info('Rating [' . $rating->rating . ' (' . $rating->id . ')] for content [' . $rating->content->title . ' (' . $rating->content_id . ')] deleted by user [' . $rating->user->name . ' (' . $rating->user_id . ')]');
+        Log::info('Character [' . $character->name . ' (' . $character->id . ')] created by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect()->route('character.index');
     }
@@ -92,6 +93,8 @@ class CharacterController extends Controller
         $character->name = $request->name;
         $character->save();
 
+        Log::info('Character [' . $character->name . ' (' . $character->id . ')] updated by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
+
         return redirect()->route('character.index');
     }
 
@@ -104,7 +107,10 @@ class CharacterController extends Controller
             abort(403);
         }
 
-        Character::find($id)->delete();
+        $character = Character::findOrFail($id);
+        $character->delete();
+
+        Log::info('Character [' . $character->name . ' (' . $character->id . ')] deleted by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
 
         return redirect()->route('character.index');
     }

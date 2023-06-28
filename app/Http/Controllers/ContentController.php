@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Content;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Content;
 
 class ContentController extends Controller
 {

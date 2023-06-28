@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
 class UserController extends Controller
@@ -71,16 +72,16 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-
         if (!$user) {
             return abort(404);
         }
-
         Gate::allowIf(fn (User $user) => $user->is_admin);
 
         $user->delete();
 
-        return redirect('/user');
+        Log::info('User [' . $user->name . ' (' . $user->id . ')] deleted by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
+
+        return redirect('user');
     }
 
     /**
@@ -89,16 +90,16 @@ class UserController extends Controller
     public function changeModStatus(string $id)
     {
         $user = User::where('id', $id)->first();
-
         if (!$user) {
             return abort(404);
         }
-
         Gate::allowIf(fn (User $user) => $user->is_admin);
 
         $user->is_mod = !$user->is_mod;
         $user->save();
 
-        return redirect('/user');
+        Log::info('User [' . $user->name . ' (' . $user->id . ')] mod status changed to [' . ($user->is_mod ? 'true' : 'false') . '] by user [' . Auth::user()->name . ' (' . Auth::user()->id . ')]');
+
+        return redirect('user');
     }
 }
