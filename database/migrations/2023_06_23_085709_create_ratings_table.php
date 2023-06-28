@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('content_id')->constrained()->cascadeOnDelete();
-            $table->integer('rating')->nullable();
-            $table->integer('progress')->default(0);
+            $table->float('rating')->nullable();
+            $table->float('progress')->default(0.0);
             $table->boolean('is_favorite')->default(false);
             $table->date('date_started')->nullable();
             $table->date('date_finished')->nullable();
