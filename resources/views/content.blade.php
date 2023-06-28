@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
     @if (Auth::check() && Auth::user()->can('modify'))
-        <a href={{ action([App\Http\Controllers\ContentController::class, 'create']) }}>New Content</a>
+        <a class="block text-red-500 font-semibold py-4 px-4 font-mono" href={{ action([App\Http\Controllers\ContentController::class, 'create']) }}>{{__('content.newContent')}}</a>
     @endif
     <div class="mx-auto max-w-screen">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -9,34 +9,34 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Image</span>
+                            <span class="sr-only">{{ __('content.poster')}}</span>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Title
+                            {{ __('content.title') }}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Type
+                            {{ __('content.type')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Episode Count
+                            {{ __('content.ep_cnt')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Length
+                            {{ __('content.length')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Year
+                            {{ __('content.year')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Genres
+                            {{ __('content.genres')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Crew & Cast
+                            {{ __('content.cast')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Characters
+                            {{ __('content.characters')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Studios
+                            {{ __('content.studios')}}
                         </th>
                     </tr>
                 </thead>
@@ -51,7 +51,7 @@
                                 <a href={{ route('content.show', ['content' => $content->id]) }}>{{ $content->title }}</a>
                                 <a
                                     href={{ action([App\Http\Controllers\RatingController::class, 'create'], ['content_id' => $content->id]) }}>
-                                    (rate)
+                                    ({{ __('content.rate')}})
                                 </a>
                             </td>
                             <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
