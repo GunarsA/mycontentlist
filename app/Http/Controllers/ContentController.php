@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Content;
+use Illuminate\Support\Facades\Auth;
 
 class ContentController extends Controller
 {
@@ -35,8 +36,6 @@ class ContentController extends Controller
         $positions = \App\Models\PositionType::all();
         $studios = \App\Models\Studio::all();
         $characters = \App\Models\Character::all();
-
-        Log::info('New content creation');
 
         return view('content_create', compact('types', 'genres', 'staff', 'characters', 'studios', 'positions'));
     }
@@ -86,6 +85,11 @@ class ContentController extends Controller
             $content->image_path = $path;
             $content->save();
         }
+
+        Log::info(
+            'New content [{content_title} ({content_id})] created by user [{user_name} ({user_id})]',
+            ['content_id' => $content->id, 'content_title' => $content->title, 'user_id' => $request->user()->id, 'user_name' => $request->user()->name]
+        );
 
         return redirect('/content');
     }
@@ -170,6 +174,11 @@ class ContentController extends Controller
             $content->save();
         }
 
+        Log::info(
+            'Content [{content_title} ({content_id})] updated by user [{user_name} ({user_id})]',
+            ['content_id' => $content->id, 'content_title' => $content->title, 'user_id' => $request->user()->id, 'user_name' => $request->user()->name]
+        );
+
         return redirect('/content');
     }
 
@@ -183,7 +192,15 @@ class ContentController extends Controller
         }
 
         $content = Content::findOrFail($id);
-        Storage::disk('public')->delete($content->image_path);
+        if($content->image_path){
+            Storage::disk('public')->delete($content->image_path);
+        }
+        $content->delete();
+
+        log::info(
+            'Content [{content_title} ({content_id})] deleted by user [{user_name} ({user_id})]',
+            ['content_id' => $content->id, 'content_title' => $content->title, 'user_id' => Auth::user()->id, 'user_name' => Auth::user()->name]
+        );
 
         return redirect('/content');
     }

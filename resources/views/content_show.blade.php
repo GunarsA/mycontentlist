@@ -12,6 +12,13 @@
     @if (Auth::check() && Auth::user()->can('modify'))
     <a href={{ action([App\Http\Controllers\ContentController::class, 'edit'], ['content' => $content]) }}>Edit</a>
     @endif
+    @if (Auth::check() && Auth::user()->can('modify'))
+    <form action={{ action([App\Http\Controllers\ContentController::class, 'destroy'], ['content' => $content]) }} method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Delete</button>
+    </form>
+    @endif
     <h3>Content Type</h3>
     <p>{{ $content->type->type }}</p>
     <h3>Episode Count</h3>
