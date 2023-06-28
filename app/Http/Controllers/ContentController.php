@@ -87,7 +87,7 @@ class ContentController extends Controller
         }
 
         Log::info(
-            'New content [{content_title} ({content_id})] created by user [{user_name} ({user_id})]',
+            'Content [{content_title} ({content_id})] created by user [{user_name} ({user_id})]',
             ['content_id' => $content->id, 'content_title' => $content->title, 'user_id' => $request->user()->id, 'user_name' => $request->user()->name]
         );
 

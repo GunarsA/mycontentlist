@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use App\Models\Rating;
 
 class RatingController extends Controller
@@ -51,7 +52,7 @@ class RatingController extends Controller
         ]);
         $rating->user_id = $request->user_id;
         $rating->content_id = $request->content_id;
-       // $rating->rating = $request->rating;
+        // $rating->rating = $request->rating;
         $rating->is_favorite = $request->is_favorite ? true : false;
         $rating->date_started = $request->date_started;
         $rating->date_finished = $request->date_finished;
@@ -59,6 +60,7 @@ class RatingController extends Controller
         $rating->fill($validated);
         $rating->save();
 
+        Log::info('Rating [' . $rating->rating . ' (' . $rating->id . ')] for content [' . $rating->content->title . ' (' . $rating->content_id . ')] created by user [' . $rating->user->name . ' (' . $rating->user_id . ')]');
 
         return redirect('/rating');
     }
@@ -99,6 +101,11 @@ class RatingController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $rating = Rating::where('id', $id)->first();
+        if (!Gate::allows('rate', $rating)) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'rating' => 'required|numeric|min:0|max:10',
             // 'date_started' => '',
@@ -108,13 +115,15 @@ class RatingController extends Controller
         $rating = Rating::where('id', $id)->first();
         $rating->user_id = $request->user_id;
         $rating->content_id = $request->content_id;
-       // $rating->rating = $request->rating;
+        // $rating->rating = $request->rating;
         $rating->is_favorite = $request->is_favorite ? true : false;
         $rating->date_started = $request->date_started;
         $rating->date_finished = $request->date_finished;
         $rating->review = $request->review;
         $rating->fill($validated);
         $rating->save();
+
+        Log::info('Rating [' . $rating->rating . ' (' . $rating->id . ')] for content [' . $rating->content->title . ' (' . $rating->content_id . ')] updated by user [' . $rating->user->name . ' (' . $rating->user_id . ')]');
 
         return redirect('/rating');
     }
@@ -124,8 +133,13 @@ class RatingController extends Controller
      */
     public function destroy(string $id)
     {
-        $rating = Rating::where('id', $id)->first();
+        $rating = Rating::findOrFail($id);
+        if (!Gate::allows('rate', $rating)) {
+            abort(403);
+        }
         $rating->delete();
+
+        Log::info('Rating [' . $rating->rating . ' (' . $rating->id . ')] for content [' . $rating->content->title . ' (' . $rating->content_id . ')] deleted by user [' . $rating->user->name . ' (' . $rating->user_id . ')]');
 
         return redirect('/rating');
     }

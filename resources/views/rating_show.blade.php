@@ -13,6 +13,13 @@
     <p>
         <a href={{action([App\Http\Controllers\RatingController::class, 'edit'], [$rating->id])}}>Edit</a>
     </p>
+    <p>
+    <form action={{action([App\Http\Controllers\RatingController::class, 'destroy'], [$rating->id])}} method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Delete</button>
+    </form>
+    </p>
 
     <h3>Rating</h3>
     <p>{{ $rating->rating }}</p>
