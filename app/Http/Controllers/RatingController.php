@@ -43,14 +43,22 @@ class RatingController extends Controller
     public function store(Request $request)
     {
         $rating = new Rating();
+        $validated = $request->validate([
+            'rating' => 'required|numeric|min:0|max:10',
+            // 'date_started' => '',
+            // 'date_finished' => '',
+            // 'review' => '',
+        ]);
         $rating->user_id = $request->user_id;
         $rating->content_id = $request->content_id;
-        $rating->rating = $request->rating;
+       // $rating->rating = $request->rating;
         $rating->is_favorite = $request->is_favorite ? true : false;
         $rating->date_started = $request->date_started;
         $rating->date_finished = $request->date_finished;
         $rating->review = $request->review;
+        $rating->fill($validated);
         $rating->save();
+
 
         return redirect('/rating');
     }
@@ -91,14 +99,21 @@ class RatingController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validated = $request->validate([
+            'rating' => 'required|numeric|min:0|max:10',
+            // 'date_started' => '',
+            // 'date_finished' => '',
+            // 'review' => '',
+        ]);
         $rating = Rating::where('id', $id)->first();
         $rating->user_id = $request->user_id;
         $rating->content_id = $request->content_id;
-        $rating->rating = $request->rating;
+       // $rating->rating = $request->rating;
         $rating->is_favorite = $request->is_favorite ? true : false;
         $rating->date_started = $request->date_started;
         $rating->date_finished = $request->date_finished;
         $rating->review = $request->review;
+        $rating->fill($validated);
         $rating->save();
 
         return redirect('/rating');

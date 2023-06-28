@@ -9,6 +9,15 @@
 
 <body>
     <h1>{{ $rating->content->title }}</h1>
+    @if (count($errors) > 0)
+    <div>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form method="POST" action={{ action([App\Http\Controllers\RatingController::class, 'update'], ['rating' => $rating]) }}>
         @csrf
         @method('PUT')
@@ -16,10 +25,10 @@
         <input type="hidden" name="content_id" id="content_id" value="{{ $rating->content_id }}">
 
         <label for="rating">Rating</label>
-        <input type="number" name="rating" id="rating" min="1" max="10" value={{old('rating', $rating->rating)}}>
+        <input type="text" name="rating" id="rating" min="1" max="10" value={{old('rating', $rating->rating)}}>
 
         <label for="progress">Progress</label>
-        <input type="number" name="progress" id="progress" min="0" max={{ $rating->content->episode_cnt }} value={{old('progress', $rating->progress)}}>
+        <input type="text" name="progress" id="progress" min="0" max={{ $rating->content->episode_cnt }} value={{old('progress', $rating->progress)}}>
 
         <label for="is_favorite">Favorite</label>
         <input type="checkbox" name="is_favorite" id="is_favorite" {{old('is_favorite', $rating->is_favorite) ? 'checked':''}}>

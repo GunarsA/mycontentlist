@@ -9,6 +9,8 @@ class Rating extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['rating']; //'is_favorite', 'date_started', 'date_finished', 'review'];
+
     /**
      * Get the user that owns the rating.
      */
