@@ -11,7 +11,7 @@
 
 <body>
     <nav class="border-gray-500 dark:bg-gray-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 shadow-md">
             <div class="flex items-center md:order-2">
                 @if (Auth::check())
                     <a href="{{ route('user.show', Auth::user()->id) }}"
