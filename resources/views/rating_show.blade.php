@@ -26,7 +26,7 @@
     <p>{{ $rating->date_finished }}</p>
     <h3>Review</h3>
     <p>{{ $rating->review }}</p>
-    
+
 </body>
 
 </html>

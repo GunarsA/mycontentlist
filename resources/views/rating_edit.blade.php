@@ -25,7 +25,7 @@
         <input type="hidden" name="content_id" id="content_id" value="{{ $rating->content_id }}">
 
         <label for="rating">Rating</label>
-        <input type="text" name="rating" id="rating" min="1" max="10" value={{old('rating', $rating->rating)}}>
+        <input type="text" name="rating" id="rating" min="0" max="10" value={{old('rating', $rating->rating)}}>
 
         <label for="progress">Progress</label>
         <input type="text" name="progress" id="progress" min="0" max={{ $rating->content->episode_cnt }} value={{old('progress', $rating->progress)}}>
