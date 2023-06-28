@@ -34,14 +34,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    Route::resource('character', CharacterController::class, ['only' => ['create', 'edit']]);
+    Route::resource('character', CharacterController::class, ['only' => ['create', 'edit', 'destroy']]);
     Route::resource('content', ContentController::class, ['only' => ['create', 'edit']]);
     Route::resource('genre', GenreController::class, ['only' => ['create', 'edit']]);
     Route::resource('rating', RatingController::class, ['only' => ['edit']]);
     Route::get('/rating/create/{content_id}', [RatingController::class, 'create'])->name('rating.create');
     Route::resource('staff', StaffController::class, ['only' => ['create', 'edit']]);
     Route::resource('studio', StudioController::class, ['only' => ['create', 'edit']]);
-    Route::resource('user', UserController::class, ['only' => ['create', 'edit']]);
+
+    Route::post('/user/changeModStatus/{id}', [UserController::class, 'changeModStatus'])->name('user.changeModStatus');
 });
 
 Route::resource('character', CharacterController::class, ['except' => ['create', 'edit']]);
@@ -50,6 +51,7 @@ Route::resource('genre', GenreController::class, ['except' => ['create', 'edit']
 Route::resource('rating', RatingController::class, ['except' => ['create', 'edit']]);
 Route::resource('staff', StaffController::class, ['except' => ['create', 'edit']]);
 Route::resource('studio', StudioController::class, ['except' => ['create', 'edit']]);
-Route::resource('user', UserController::class);
+
+Route::resource('user', UserController::class, ['only' => ['index', 'show', 'destroy']]);
 
 require __DIR__.'/auth.php';

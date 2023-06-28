@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use App\Models\Character;
-use App\Models\User;
 
 class CharacterController extends Controller
 {
@@ -43,6 +43,8 @@ class CharacterController extends Controller
         $character = new Character();
         $character->name = $request->name;
         $character->save();
+
+        // Log::info('Rating [' . $rating->rating . ' (' . $rating->id . ')] for content [' . $rating->content->title . ' (' . $rating->content_id . ')] deleted by user [' . $rating->user->name . ' (' . $rating->user_id . ')]');
 
         return redirect()->route('character.index');
     }
