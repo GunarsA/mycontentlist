@@ -18,6 +18,7 @@ return [
     'review' => 'Atsauksme',
     'progress' => 'Progress',
     'show' => 'Parādīt',
-    'Action' => 'Action',
-    'genAction' => 'lmao',
+    'selectGenres' => 'Izvēlaties žanrus',
+    'director' => 'Režisors',
+    'studio' => 'Studija',
 ];

@@ -18,4 +18,7 @@ return [
     'review' => 'Review',
     'progress' => 'Progress',
     'show' => 'Show',
+    'selectGenres' => 'Select genres',
+    'director' => 'Director',
+    'studio' => 'Studio',
 ];
