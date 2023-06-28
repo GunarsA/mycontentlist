@@ -162,7 +162,9 @@ class ContentController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($content->image_path);
+            if ($content->image_path) {
+                Storage::disk('public')->delete($content->image_path);
+            }
             $path = $request->file('image')->store('images', 'public');
             $content->image_path = $path;
             $content->save();
