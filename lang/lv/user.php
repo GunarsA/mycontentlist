@@ -20,4 +20,13 @@ return [
     'Saved' => 'Saglabāts.',
     'ProfileInformation' => 'Profila informācija',
     'Save' => 'Saglabāt',
+    'currentPassword' => 'Pašreizējā parole',
+    'newPassword' => 'Jaunā parole',
+    'updatePassword' => 'Atjaunot paroli',
+    'ensure' => 'Pārliecinieties, ka jūsu kontā tiek izmantota gara, nejauši izvēlēta parole, lai saglabātu drošību.',
+    'deleteAccount' => 'Dzēst kontu',
+    'delDisc' => 'Kad jūsu konts ir dzēsts, visi tā resursi un dati tiks neatgriezeniski dzēsti. Pirms konta dzēšanas, lūdzu, lejupielādējiet visus datus vai informāciju, ko vēlaties saglabāt.',
+    'deleteConfirm' => 'Vai esat pārliecināts, ka vēlaties dzēst savu kontu?',
+    'onceDel' => 'Kad jūsu konts ir dzēsts, visi tā resursi un dati tiks neatgriezeniski dzēsti. Lūdzu, ievadiet savu paroli, lai apstiprinātu, ka vēlaties neatgriezeniski dzēst savu kontu.',
+    'Cancel' => 'Atcelt',
 ];
