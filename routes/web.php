@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::resource('character', CharacterController::class, ['only' => ['create', 'edit', 'destroy']]);
     Route::resource('content', ContentController::class, ['only' => ['create', 'edit']]);
     Route::resource('genre', GenreController::class, ['only' => ['create', 'edit']]);
@@ -53,5 +53,25 @@ Route::resource('staff', StaffController::class, ['except' => ['create', 'edit']
 Route::resource('studio', StudioController::class, ['except' => ['create', 'edit']]);
 
 Route::resource('user', UserController::class, ['only' => ['index', 'show', 'destroy']]);
+
+// Route::group(['middleware' => ['auth', 'setLocale']], function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+//     Route::resource('character', CharacterController::class, ['only' => ['create', 'edit', 'destroy']]);
+//     Route::resource('content', ContentController::class, ['only' => ['create', 'edit']]);
+//     Route::resource('genre', GenreController::class, ['only' => ['create', 'edit']]);
+//     Route::resource('rating', RatingController::class, ['only' => ['edit']]);
+//     Route::get('/rating/create/{content_id}', [RatingController::class, 'create'])->name('rating.create');
+//     Route::resource('staff', StaffController::class, ['only' => ['create', 'edit']]);
+//     Route::resource('studio', StudioController::class, ['only' => ['create', 'edit']]);
+// });
+
+// Route::get('/{locale}', function ($locale) {
+//     app()->setLocale($locale);
+// })->name('change_locale');
+
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
 require __DIR__.'/auth.php';

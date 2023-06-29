@@ -14,7 +14,7 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 shadow-md">
             <div class="flex items-center md:order-2">
                 @if (Auth::check())
-                <p class="text-sm" style="margin-right:-12px;">{{ __('layout.welcome') }},</p>
+                    <p class="text-sm" style="margin-right:-12px;">{{ __('layout.welcome') }},</p>
                     <a href="{{ route('user.show', Auth::user()->id) }}"
                         class="text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-400 ml-4">
                         {{ Auth::user()->name }}
@@ -27,14 +27,20 @@
                 @endif
                 <a href={{ route('profile.edit') }}
                     class="text-sm text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-400 ml-4">
-                    {{ __('layout.dashboard') }}
-                </a>
-                <a class="block px-4" href="">
-                    🇱🇻
-                </a>
-                <a class="block" href="">
-                    🇺🇸
-                </a>
+                    <span class="">
+                        {{ __('layout.dashboard') }}
+                    </span>
+                    <span class="invisible">
+                        {{ Config::get('languages')[App::getLocale()] }}
+                    </span>
+                    <div class="">
+                        @foreach (Config::get('languages') as $lang => $language)
+                            @if (Config::get('languages') != App::getLocale())
+                                <a style="" class="" href="{{ route('lang.switch', $lang) }}">
+                                    {{ $language }}</a>
+                            @endif
+                        @endforeach
+                    </div>
             </div>
             <ul
                 class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
