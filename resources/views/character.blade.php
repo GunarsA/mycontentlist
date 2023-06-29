@@ -1,18 +1,19 @@
 @extends('layout')
 @section('content')
-    <h1>Characters</h1>
-    <a href="{{ route('character.create') }}">New Character</a>
-    <ul>
+    <h1 class="text-3xl font-bold text-black">Characters</h1>
+    <a href="{{ route('character.create') }}" class="text-blue-500 hover:underline mt-4">New Character</a>
+    <ul class="mt-4">
         @foreach ($characters as $character)
-        <li>
-            <a href="{{ route('character.show', ['character' => $character->id])}}">{{ $character->name }}</a>
-            <form method="POST" action="{{ route('character.destroy', $character->id) }}">
-                @csrf
-                @method('DELETE')
-
-                <button type="submit" value="delete">Delete</button>
-            </form>
-        </li>
+            <li class="bg-white shadow-lg rounded-lg p-6 mb-4">
+                <a href="{{ route('character.show', ['character' => $character->id]) }}"
+                    class="text-blue-500 hover:underline">{{ $character->name }}</a>
+                <form method="POST" action="{{ route('character.destroy', $character->id) }}" class="inline-block">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="text-white bg-red-500 px-4 py-2 rounded-full ml-2 hover:bg-red-700">Delete</button>
+                </form>
+            </li>
         @endforeach
     </ul>
 @endsection
