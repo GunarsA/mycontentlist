@@ -30,9 +30,6 @@
                     <span class="">
                         {{ __('layout.dashboard') }}
                     </span>
-                    <span class="invisible">
-                        {{ Config::get('languages')[App::getLocale()] }}
-                    </span>
                     <div class="">
                         @foreach (Config::get('languages') as $lang => $language)
                             @if (Config::get('languages') != App::getLocale())
