@@ -246,6 +246,54 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Lilly Wachowski',
             ],
+            [
+                'name' => 'Peter Jackson',
+            ],
+            [
+                'name' => 'Bryan Cranston',
+            ],
+            [
+                'name' => 'David Benioff',
+            ],
+            [
+                'name' => 'D.B. Weiss',
+            ],
+            [
+                'name' => 'Jennifer Aniston',
+            ],
+            [
+                'name' => 'Lisa Kudrow',
+            ],
+            [
+                'name' => 'Matt LeBlanc',
+            ],
+            [
+                'name' => 'Christopher Nolan',
+            ],
+            [
+                'name' => 'Christian Bale',
+            ],
+            [
+                'name' => 'Tim Robbins',
+            ],
+            [
+                'name' => 'Millie Bobby Brown',
+            ],
+            [
+                'name' => 'Robert Downey Jr.',
+            ],
+            [
+                'name' => 'Daniel Radcliffe',
+            ],
+            [
+                'name' => 'Rupert Grint',
+            ],
+            [
+                'name' => 'Emma Watson',
+            ],
+            [
+                'name' => 'Jim Parsons',
+            ],
         ]);
 
         DB::table('genres')->insert([
@@ -266,6 +314,51 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Morpheus',
+            ],
+            [
+                'name' => 'Trinity',
+            ],
+            [
+                'name' => 'Agent Smith',
+            ],
+            [
+                'name' => 'Gandalf',
+            ],
+            [
+                'name' => 'Walter White',
+            ],
+            [
+                'name' => 'Tyrion Lannister',
+            ],
+            [
+                'name' => 'Chandler Bing',
+            ],
+            [
+                'name' => 'Ross Geller',
+            ],
+            [
+                'name' => 'Bruce Wayne',
+            ],
+            [
+                'name' => 'Andy Dufresne',
+            ],
+            [
+                'name' => 'Mike Wheeler',
+            ],
+            [
+                'name' => 'Tony Stark',
+            ],
+            [
+                'name' => 'Harry Potter',
+            ],
+            [
+                'name' => 'Ron Weasley',
+            ],
+            [
+                'name' => 'Hermione Granger',
+            ],
+            [
+                'name' => 'Sheldon Cooper',
             ],
         ]);
 
@@ -325,6 +418,27 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Village Roadshow Pictures',
             ],
+            [
+                'name' => 'New Line Cinema',
+            ],
+            [
+                'name' => 'Lionsgate',
+            ],
+            [
+                'name' => 'HBO',
+            ],
+            [
+                'name' => 'Paramount Pictures',
+            ],
+            [
+                'name' => 'Legendary Pictures',
+            ],
+            [
+                'name' => 'DC Comics',
+            ],
+            [
+                'name' => 'Marvel Studios',
+            ],
         ]);
 
         DB::table('content_studios')->insert([
@@ -335,6 +449,36 @@ class DatabaseSeeder extends Seeder
             [
                 'content_id' => 1,
                 'studio_id' => 2,
+            ],
+        ]);
+
+        DB::table('ratings')->insert([
+            [
+                'content_id' => 1,
+                'user_id' => 1,
+                'rating' => '7',
+                'is_favorite' => 1,
+                'date_started' => '2019-01-01',
+                'date_finished' => '2019-01-01',
+                'review' => 'This is a review',
+            ],
+            [
+                'content_id' => 1,
+                'user_id' => 2,
+                'rating' => '8',
+                'is_favorite' => 1,
+                'date_started' => '2019-01-01',
+                'date_finished' => '2019-01-01',
+                'review' => 'This is a review',
+            ],
+            [
+                'content_id' => 7,
+                'user_id' => 2,
+                'rating' => '9',
+                'is_favorite' => 0,
+                'date_started' => '2022-01-01',
+                'date_finished' => '2022-01-01',
+                'review' => 'Guud',
             ],
         ]);
 
