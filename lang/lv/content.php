@@ -12,5 +12,6 @@ return [
     'characters' => 'Varoņi',
     'studios' => 'Studijas',
     'rate' => 'novērtēt',
-    'newContent' => 'Pievienot jaunu'
+    'newContent' => 'Pievienot jaunu',
+
 ];
