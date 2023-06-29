@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$content->title}}</title>
-</head>
-
-<body>
+@extends('layout')
+@section('content')
     <h1>{{$content->title}}</h1>
     @if (Auth::check() && Auth::user()->can('modify'))
     <a href={{ action([App\Http\Controllers\ContentController::class, 'edit'], ['content' => $content]) }}>Edit</a>
@@ -51,7 +43,4 @@
         <li>{{ $character->name }}</li>
         @endforeach
     </ul>
-
-</body>
-
-</html>
+@endsection
