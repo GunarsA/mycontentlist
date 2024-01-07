@@ -1,0 +1,56 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: gunarsab
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: mycontentlist
+    container_name: mycontentlist-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    # volumes:
+    #   - ./:/var/www
+    networks:
+      - mycontentlist
+    # command: bash -c "composer update && php artisan key:generate && php artisan migrate:fresh --seed && npm install && npm run build"
+    # command: bash -c "echo "test""
+    # command: sh -c "composer update && npm install && npm run build && php-fpm"
+    # command: ["php-fpm"]
+    # command: ["/bin/sh", "-c", "php-fpm"]
+    # entrypoint: /bin/sh -c "trap 'trap - TERM; kill -QUIT \$\$' QUIT; echo 'Running some pre-execution commands...'; npm run build; php-fpm"
+    # stop_signal: SIGQUIT
+    # entrypoint: /docker-entrypoint.sh
+
+  db:
+    image: mysql:8.0
+    container_name: mycontentlist-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - mycontentlist
+
+  nginx:
+    image: nginx:alpine
+    container_name: mycontentlist-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - mycontentlist
+    # command: sh "echo "test""
+
+networks:
+  mycontentlist:
+    driver: bridge
