@@ -107,6 +107,14 @@ The web application is a simple movie and TV show rating database. Development p
     ```bash
     ./vendor/bin/sail artisan storage:link
     ```
+8. Install npm dependencies
+    ```bash
+    ./vendor/bin/sail npm install
+    ```
+9. Build the assets
+    ```bash
+    ./vendor/bin/sail npm run build
+    ```
 
 ## Usage
 
