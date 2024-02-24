@@ -73,6 +73,7 @@ The web application is a simple movie and TV show rating database. Development p
 
 ### Requirements
 
+-   Linux, macOS or Windows with _WSL_
 -   Docker
 
 ### Steps
