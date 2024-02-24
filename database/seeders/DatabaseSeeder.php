@@ -38,14 +38,14 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'mod',
-                'email' => 'mod@email.com',
+                'email' => 'moderator@email.com',
                 'password' => bcrypt('password'),
                 'is_admin' => false,
                 'is_mod' => true,
             ],
             [
-                'name' => 'gunarsab',
-                'email' => 'gunarsab@email.com',
+                'name' => 'user',
+                'email' => 'user@email.com',
                 'password' => bcrypt('password'),
                 'is_admin' => false,
                 'is_mod' => false,
