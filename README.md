@@ -79,7 +79,7 @@ The web application is a simple movie and TV show rating database. Development p
 ### Steps
 
 1. Clone the repository and navigate to the project directory
-2. Install composer dependencies
+2. Install **composer** dependencies
     ```bash
     docker run --rm \
     -u "$(id -u):$(id -g)" \
@@ -88,11 +88,11 @@ The web application is a simple movie and TV show rating database. Development p
     laravelsail/php83-composer:latest \
     composer install --ignore-platform-reqs
     ```
-3. Copy the .env.example file to .env
+3. Copy the ```.env.example``` file to ```.env```
     ```bash
     cp .env.example .env
     ```
-4. Start the Laravel Sail containers
+4. Start the **Laravel Sail** containers
     ```bash
     ./vendor/bin/sail up -d
     ```
@@ -108,7 +108,7 @@ The web application is a simple movie and TV show rating database. Development p
     ```bash
     ./vendor/bin/sail artisan storage:link
     ```
-8. Install npm dependencies
+8. Install **npm** dependencies
     ```bash
     ./vendor/bin/sail npm install
     ```
